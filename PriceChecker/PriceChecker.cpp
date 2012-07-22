@@ -61,13 +61,19 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 		{
 			barcode[i] = this->barcode_text_box->Text[i];
 		}
-		ean13_validate( barcode);
+		ean13_validate(barcode);
 	}
 }
 
 Boolean Form1::ean13_validate(int barcode[])
 {	
-	int n2 = Convert::ToInt32(barcode[0,2]);
-	Int32 firstsumm = Convert::ToInt32(barcode[2])+Convert::ToInt32(barcode[4])+Convert::ToInt32(barcode[6])+Convert::ToInt32(barcode[8])+Convert::ToInt32(barcode[10])+Convert::ToInt32(barcode[12]);
-    return 1;
+	Boolean check = false;
+	Int32 summ = ((barcode[1]- '0')+(barcode[3]- '0')+(barcode[5]- '0')+(barcode[7]- '0')+(barcode[9]- '0')+(barcode[11]- '0'))*3+((barcode[0]- '0')+(barcode[2]- '0')+(barcode[4]- '0')+(barcode[6]- '0')+(barcode[8]- '0')+(barcode[10]- '0'));
+	Int32 ten = summ/10;
+	summ = 10-(summ - (ten*10));
+	if(summ == (barcode[12]- '0'))
+	    check = true;
+	else
+	    check = false;
+    return check;
 }
