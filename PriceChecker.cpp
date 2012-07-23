@@ -4,6 +4,7 @@
 using namespace PriceChecker;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
+using namespace System::IO;
 
 #pragma comment(lib,"User32.lib")
 
@@ -25,6 +26,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	old_price_label->Visible = false;
 	action_label->Visible = false;
 	balance_label->Visible = false;
+	msg_label->Visible = false;
 
 	//para
 	old_price_para->Visible = false;
@@ -53,15 +55,41 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
 {
 	int len = barcode_text_box->TextLength ;
-	int barcode[13];
-	
-	if (len == 13)
+	Int32 barcode[13];
+
+	switch (len)
 	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 13:
+
 		for (int i=0; i< len; i++)
 		{
 			barcode[i] = this->barcode_text_box->Text[i];
 		}
-		ean13_validate(barcode);
+
+		if(ean13_validate(barcode))
+		{
+
+		}
+		else
+		{
+			msg_label->Visible = true;
+			msg_label->Text = "Возможно штрих-код был считан неверно попробуйте еще раз";
+			msg_clear->Enabled = true;
+
+			String^ bar;
+
+			for (int i=0; i< len; i++)
+			{
+				bar += this->barcode_text_box->Text[i];
+			}
+
+		    log_write(bar,"NOTVALID[EAN13]");
+		}
+		break;
 	}
 }
 
@@ -79,4 +107,14 @@ Boolean Form1::ean13_validate(int barcode[])
 		check = false;
 
 	return check;
+}
+
+void Form1::log_write(String^ str,String^ reason)
+{
+	String^ EntryTime = (gcnew DateTime())->Now.ToLongTimeString();
+	String^ EntryDate = (gcnew DateTime())->Today.ToShortDateString();
+	String^ fileName = "PriceChecker.log";
+	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::ASCII);
+	sw->WriteLine("["+EntryDate+"]["+EntryTime+"]["+reason+"]"+" "+str);
+	sw->Close();
 }

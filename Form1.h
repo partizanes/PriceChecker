@@ -48,7 +48,13 @@ namespace PriceChecker {
 
     private: System::Windows::Forms::Timer^  timer1;
     private: System::Windows::Forms::Panel^  panel1;
-    private: System::ComponentModel::IContainer^  components;
+	private: System::Windows::Forms::Panel^  panel2;
+	private: System::Windows::Forms::Panel^  panel3;
+	private: System::Windows::Forms::Panel^  panel4;
+	private: System::Windows::Forms::Label^  msg_label;
+	private: System::Windows::Forms::Timer^  msg_clear;
+
+	private: System::ComponentModel::IContainer^  components;
 
 	protected: 
 
@@ -79,12 +85,21 @@ namespace PriceChecker {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->panel3 = (gcnew System::Windows::Forms::Panel());
+			this->panel4 = (gcnew System::Windows::Forms::Panel());
+			this->msg_label = (gcnew System::Windows::Forms::Label());
+			this->msg_clear = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
+			this->panel2->SuspendLayout();
+			this->panel3->SuspendLayout();
+			this->panel4->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// barcode_text_box
 			// 
+			this->barcode_text_box->Cursor = System::Windows::Forms::Cursors::Arrow;
 			resources->ApplyResources(this->barcode_text_box, L"barcode_text_box");
 			this->barcode_text_box->Name = L"barcode_text_box";
 			this->barcode_text_box->TabStop = false;
@@ -94,10 +109,12 @@ namespace PriceChecker {
 			// barcode_label
 			// 
 			resources->ApplyResources(this->barcode_label, L"barcode_label");
+			this->barcode_label->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->barcode_label->Name = L"barcode_label";
 			// 
 			// item_name_textbox
 			// 
+			this->item_name_textbox->Cursor = System::Windows::Forms::Cursors::Arrow;
 			resources->ApplyResources(this->item_name_textbox, L"item_name_textbox");
 			this->item_name_textbox->Name = L"item_name_textbox";
 			this->item_name_textbox->Click += gcnew System::EventHandler(this, &Form1::item_name_textbox_Click);
@@ -136,7 +153,8 @@ namespace PriceChecker {
 			// action_label
 			// 
 			resources->ApplyResources(this->action_label, L"action_label");
-			this->action_label->ForeColor = System::Drawing::Color::Blue;
+			this->action_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			this->action_label->Name = L"action_label";
 			// 
 			// old_price_label
@@ -172,31 +190,72 @@ namespace PriceChecker {
 			// 
 			// panel1
 			// 
-			this->panel1->BackColor = System::Drawing::Color::Silver;
+			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(224)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(192)));
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panel1->Controls->Add(this->label1);
 			resources->ApplyResources(this->panel1, L"panel1");
 			this->panel1->Name = L"panel1";
 			// 
+			// panel2
+			// 
+			this->panel2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(224)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(192)));
+			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel2->Controls->Add(this->barcode_label);
+			this->panel2->Controls->Add(this->barcode_text_box);
+			this->panel2->Controls->Add(this->name_label);
+			this->panel2->Controls->Add(this->item_name_textbox);
+			resources->ApplyResources(this->panel2, L"panel2");
+			this->panel2->Name = L"panel2";
+			// 
+			// panel3
+			// 
+			this->panel3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(224)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(192)));
+			this->panel3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel3->Controls->Add(this->balance_para);
+			this->panel3->Controls->Add(this->old_price_label);
+			this->panel3->Controls->Add(this->balance_label);
+			this->panel3->Controls->Add(this->old_price_para);
+			this->panel3->Controls->Add(this->price_textbox);
+			this->panel3->Controls->Add(this->price_para);
+			resources->ApplyResources(this->panel3, L"panel3");
+			this->panel3->Name = L"panel3";
+			// 
+			// panel4
+			// 
+			this->panel4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->panel4->Controls->Add(this->action_label);
+			this->panel4->Controls->Add(this->msg_label);
+			resources->ApplyResources(this->panel4, L"panel4");
+			this->panel4->Name = L"panel4";
+			// 
+			// msg_label
+			// 
+			resources->ApplyResources(this->msg_label, L"msg_label");
+			this->msg_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->msg_label->Name = L"msg_label";
+			// 
+			// msg_clear
+			// 
+			this->msg_clear->Interval = 3000;
+			this->msg_clear->Tick += gcnew System::EventHandler(this, &Form1::msg_clear_Tick);
+			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::LemonChiffon;
+			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->ControlBox = false;
+			this->Controls->Add(this->panel4);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->pictureBox1);
-			this->Controls->Add(this->old_price_label);
-			this->Controls->Add(this->action_label);
-			this->Controls->Add(this->balance_para);
-			this->Controls->Add(this->balance_label);
-			this->Controls->Add(this->price_para);
-			this->Controls->Add(this->price_textbox);
-			this->Controls->Add(this->name_label);
-			this->Controls->Add(this->item_name_textbox);
-			this->Controls->Add(this->barcode_label);
-			this->Controls->Add(this->barcode_text_box);
-			this->Controls->Add(this->old_price_para);
+			this->Controls->Add(this->panel2);
+			this->Controls->Add(this->panel3);
 			this->DoubleBuffered = true;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->MaximizeBox = false;
@@ -209,8 +268,13 @@ namespace PriceChecker {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			this->panel2->ResumeLayout(false);
+			this->panel2->PerformLayout();
+			this->panel3->ResumeLayout(false);
+			this->panel3->PerformLayout();
+			this->panel4->ResumeLayout(false);
+			this->panel4->PerformLayout();
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -235,6 +299,13 @@ private: System::Void barcode_text_box_Leave(System::Object^  sender, System::Ev
 		 }
 private: System::Void barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e);
 private: System::Boolean ean13_validate(int barcode[]);
+private: void log_write(String^ str,String^ reason);
+private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 msg_clear->Enabled = false;
+			 msg_label->Text = "";
+			 msg_label->Visible = false;
+			 barcode_text_box->Text = "";
+		 }
 };
 }
 
