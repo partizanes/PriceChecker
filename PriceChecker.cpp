@@ -59,9 +59,11 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 
 	switch (len)
 	{
-	case 0:
-		break;
-	case 1:
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
 		break;
 	case 13:
 
@@ -77,7 +79,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 		else
 		{
 			msg_label->Visible = true;
-			msg_label->Text = "Возможно штрих-код был считан неверно попробуйте еще раз";
+			msg_label->Text = "Возможно,штрих-код был считан неверно,попробуйте еще раз";
 			msg_clear->Enabled = true;
 
 			String^ bar;
