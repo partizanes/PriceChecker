@@ -9,18 +9,12 @@ namespace PriceChecker {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Сводка для Form1
-	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
 	public:
 		Form1(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
 		}
 
 	protected:
@@ -34,35 +28,31 @@ namespace PriceChecker {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^  barcode_text_box;
-	private: System::Windows::Forms::TextBox^  item_name_textbox;
-	private: System::Windows::Forms::Label^  price_textbox;
+    private: System::Windows::Forms::TextBox^  barcode_text_box;
+    private: System::Windows::Forms::TextBox^  item_name_textbox;
+    private: System::Windows::Forms::Label^  price_textbox;
 
 	
     private: System::Windows::Forms::Label^  price_para;
-	private: System::Windows::Forms::Label^  balance_para;
+    private: System::Windows::Forms::Label^  balance_para;
     private: System::Windows::Forms::Label^  old_price_para;
 
-	private: System::Windows::Forms::Label^  barcode_label;
-	private: System::Windows::Forms::Label^  action_label;
+    private: System::Windows::Forms::Label^  barcode_label;
+    private: System::Windows::Forms::Label^  action_label;
     private: System::Windows::Forms::Label^  balance_label;
-	private: System::Windows::Forms::Label^  old_price_label;
-	private: System::Windows::Forms::Label^  name_label;
+    private: System::Windows::Forms::Label^  old_price_label;
+    private: System::Windows::Forms::Label^  name_label;
 
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::Label^  label1;
+    private: System::Windows::Forms::PictureBox^  pictureBox1;
+    private: System::Windows::Forms::Label^  label1;
 
-	private: System::Windows::Forms::Timer^  timer1;
-	private: System::Windows::Forms::Panel^  panel1;
-	private: System::ComponentModel::IContainer^  components;
+    private: System::Windows::Forms::Timer^  timer1;
+    private: System::Windows::Forms::Panel^  panel1;
+    private: System::ComponentModel::IContainer^  components;
 
 	protected: 
 
-
 	private:
-		/// <summary>
-		/// Требуется переменная конструктора.
-		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
