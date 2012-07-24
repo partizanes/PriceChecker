@@ -54,6 +54,12 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Panel^  panel4;
 	private: System::Windows::Forms::Label^  msg_label;
 	private: System::Windows::Forms::Timer^  msg_clear;
+	private: System::Windows::Forms::Label^  total_para;
+
+	private: System::Windows::Forms::Label^  total_label;
+	private: System::Windows::Forms::Label^  weight_para;
+	private: System::Windows::Forms::Label^  weight_label;
+	private: System::Windows::Forms::Timer^  weight_clr;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -88,9 +94,14 @@ namespace PriceChecker {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
+			this->total_para = (gcnew System::Windows::Forms::Label());
+			this->total_label = (gcnew System::Windows::Forms::Label());
+			this->weight_para = (gcnew System::Windows::Forms::Label());
+			this->weight_label = (gcnew System::Windows::Forms::Label());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->msg_label = (gcnew System::Windows::Forms::Label());
 			this->msg_clear = (gcnew System::Windows::Forms::Timer(this->components));
+			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -100,6 +111,8 @@ namespace PriceChecker {
 			// 
 			// barcode_text_box
 			// 
+			this->barcode_text_box->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->barcode_text_box->Cursor = System::Windows::Forms::Cursors::Arrow;
 			resources->ApplyResources(this->barcode_text_box, L"barcode_text_box");
 			this->barcode_text_box->Name = L"barcode_text_box";
@@ -115,6 +128,8 @@ namespace PriceChecker {
 			// 
 			// item_name_textbox
 			// 
+			this->item_name_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->item_name_textbox->Cursor = System::Windows::Forms::Cursors::Arrow;
 			resources->ApplyResources(this->item_name_textbox, L"item_name_textbox");
 			this->item_name_textbox->Name = L"item_name_textbox";
@@ -186,7 +201,7 @@ namespace PriceChecker {
 			// 
 			// timer1
 			// 
-			this->timer1->Interval = 3000;
+			this->timer1->Interval = 5000;
 			this->timer1->Tick += gcnew System::EventHandler(this, &Form1::timer1_Tick);
 			// 
 			// panel1
@@ -215,6 +230,10 @@ namespace PriceChecker {
 			this->panel3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(224)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
 			this->panel3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel3->Controls->Add(this->total_para);
+			this->panel3->Controls->Add(this->total_label);
+			this->panel3->Controls->Add(this->weight_para);
+			this->panel3->Controls->Add(this->weight_label);
 			this->panel3->Controls->Add(this->balance_para);
 			this->panel3->Controls->Add(this->old_price_label);
 			this->panel3->Controls->Add(this->balance_label);
@@ -223,6 +242,28 @@ namespace PriceChecker {
 			this->panel3->Controls->Add(this->price_para);
 			resources->ApplyResources(this->panel3, L"panel3");
 			this->panel3->Name = L"panel3";
+			// 
+			// total_para
+			// 
+			resources->ApplyResources(this->total_para, L"total_para");
+			this->total_para->ForeColor = System::Drawing::Color::Red;
+			this->total_para->Name = L"total_para";
+			// 
+			// total_label
+			// 
+			resources->ApplyResources(this->total_label, L"total_label");
+			this->total_label->Name = L"total_label";
+			// 
+			// weight_para
+			// 
+			resources->ApplyResources(this->weight_para, L"weight_para");
+			this->weight_para->ForeColor = System::Drawing::Color::Red;
+			this->weight_para->Name = L"weight_para";
+			// 
+			// weight_label
+			// 
+			resources->ApplyResources(this->weight_label, L"weight_label");
+			this->weight_label->Name = L"weight_label";
 			// 
 			// panel4
 			// 
@@ -236,14 +277,18 @@ namespace PriceChecker {
 			// msg_label
 			// 
 			resources->ApplyResources(this->msg_label, L"msg_label");
-			this->msg_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
-				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->msg_label->ForeColor = System::Drawing::SystemColors::ActiveCaption;
 			this->msg_label->Name = L"msg_label";
 			// 
 			// msg_clear
 			// 
-			this->msg_clear->Interval = 5000;
+			this->msg_clear->Interval = 8000;
 			this->msg_clear->Tick += gcnew System::EventHandler(this, &Form1::msg_clear_Tick);
+			// 
+			// weight_clr
+			// 
+			this->weight_clr->Interval = 8000;
+			this->weight_clr->Tick += gcnew System::EventHandler(this, &Form1::weight_clr_Tick);
 			// 
 			// Form1
 			// 
@@ -311,6 +356,14 @@ private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^
 			 barcode_text_box->Text = "";
 		 }
 private: System::Void Form1::query(String^ bar);
+private: System::Void Form1::set_msg_on_timer(String^ text);
+private: System::Void weight_clr_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 weight_para->Visible = false;
+			 weight_label->Visible = false;
+			 total_label->Visible = false;
+			 total_para->Visible = false;
+			 weight_clr->Enabled = false;
+		 }
 };
 }
 

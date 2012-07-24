@@ -27,11 +27,15 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	action_label->Visible = false;
 	balance_label->Visible = false;
 	msg_label->Visible = false;
+	weight_label->Visible = false;
+	total_label->Visible = false;
 
 	//para
 	old_price_para->Visible = false;
 	balance_para->Visible = false;
 	price_para->Visible = false;
+	weight_para->Visible = false;
+	total_para->Visible = false;
 
 	//full screen size after form load
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
@@ -67,15 +71,48 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 		break;
 	case 13:
 
+		String^ bar;
+		String^ weight;
+
 		for (int i=0; i< len; i++)
 		{
 			barcode[i] = this->barcode_text_box->Text[i];
 		}
 
+		if((barcode[0]- '0') == 2 && (barcode[1]- '0') == 0)
+		{
+			for (int i=0; i< 7; i++)
+			{
+				bar += this->barcode_text_box->Text[i];
+			}
+
+			for (int i=7; i< 12; i++)
+			{
+				weight += this->barcode_text_box->Text[i];
+			}
+
+			query(bar);
+
+			float w = (float(Convert::ToInt32(weight))/1000);
+
+			weight_para->Text = Convert::ToString(w);
+
+			w = float((Convert::ToInt32(price_para->Text))*(w));
+
+			weight_para->Visible = true;
+			weight_label->Visible = true;
+			total_para->Visible = true;
+			total_label->Visible = true;
+			total_para->Text = Convert::ToString(Convert::ToInt32(w));
+			weight_clr->Enabled = true;
+
+			set_msg_on_timer("Цена указана за килограмм,цена вашей покупки составит "+ Convert::ToString(Convert::ToInt32(w)));
+
+			break;
+		}
+
 		if(ean13_validate(barcode))
 		{
-			String^ bar;
-
 			for (int i=0; i< len; i++)
 			{
 				bar += this->barcode_text_box->Text[i];
@@ -85,9 +122,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 		}
 		else
 		{
-			msg_label->Visible = true;
-			msg_label->Text = "Возможно,штрих-код был считан неверно,попробуйте еще раз";
-			msg_clear->Enabled = true;
+			set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуйте еще раз");
 
 			String^ bar;
 
@@ -131,7 +166,7 @@ void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -145,29 +180,34 @@ Void Form1::query(String^ bar)
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
-		if(!reader->Read())
+		if(reader->Read())
 		{
-			msg_label->Visible = true;
-			msg_label->Text = "Штрих-код не найден,обратитесь к продавцу!";
-			msg_clear->Enabled = true;
-		}
-
-		while(reader->Read())
-		{
+			price_para->Visible = true;
 			item_name_textbox->Text = reader->GetString(0);
-			price_para->Text =reader->GetString(1);
+			price_para->Text =Convert::ToString(reader->GetInt32(1));
+		}
+		else
+		{
+			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
 		}
 
 	}
 	catch (Exception^ exc)
 	{
-		msg_label->Visible = true;
-		msg_label->Text = ("Exception: " + exc->Message);
-		msg_clear->Enabled = true;
+		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
 	{
 		if (reader != nullptr)
 			reader->Close();
+		msg_clear->Enabled = true;
 	}
 }
+
+Void Form1::set_msg_on_timer(String^ text)
+{
+	msg_clear->Enabled = true;
+	msg_label->Visible = true;
+	msg_label->Text = text;
+}
+

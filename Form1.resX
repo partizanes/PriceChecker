@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="barcode_text_box.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 15.75pt</value>
+    <value>Tahoma, 15.75pt, style=Bold</value>
   </data>
   <data name="barcode_text_box.Location" type="System.Drawing.Point, System.Drawing">
     <value>175, 9</value>
@@ -184,13 +184,13 @@
     <value>0</value>
   </data>
   <data name="item_name_textbox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 15.75pt</value>
+    <value>Tahoma, 18pt, style=Bold</value>
   </data>
   <data name="item_name_textbox.Location" type="System.Drawing.Point, System.Drawing">
     <value>593, 9</value>
   </data>
   <data name="item_name_textbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>662, 33</value>
+    <value>662, 36</value>
   </data>
   <data name="item_name_textbox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -271,19 +271,19 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;price_textbox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
   <data name="price_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="price_para.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 27.75pt, style=Bold</value>
+    <value>Tahoma, 36pt, style=Bold</value>
   </data>
   <data name="price_para.Location" type="System.Drawing.Point, System.Drawing">
     <value>593, 10</value>
   </data>
   <data name="price_para.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 45</value>
+    <value>146, 58</value>
   </data>
   <data name="price_para.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -301,7 +301,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;price_para.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="balance_label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -313,7 +313,7 @@
     <value>NoControl</value>
   </data>
   <data name="balance_label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>777, 32</value>
+    <value>758, 30</value>
   </data>
   <data name="balance_label.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 25</value>
@@ -334,7 +334,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;balance_label.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="balance_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -346,7 +346,7 @@
     <value>NoControl</value>
   </data>
   <data name="balance_para.Location" type="System.Drawing.Point, System.Drawing">
-    <value>891, 21</value>
+    <value>872, 19</value>
   </data>
   <data name="balance_para.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 39</value>
@@ -367,7 +367,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;balance_para.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>4</value>
   </data>
   <data name="action_label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -412,7 +412,7 @@
     <value>NoControl</value>
   </data>
   <data name="old_price_label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 36</value>
+    <value>229, 33</value>
   </data>
   <data name="old_price_label.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 19</value>
@@ -433,7 +433,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_label.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="old_price_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -448,7 +448,7 @@
     <value>NoControl</value>
   </data>
   <data name="old_price_para.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 24</value>
+    <value>357, 29</value>
   </data>
   <data name="old_price_para.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 35</value>
@@ -469,7 +469,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_para.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="pictureBox1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -576,6 +576,138 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="total_para.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="total_para.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 36pt, style=Bold</value>
+  </data>
+  <data name="total_para.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="total_para.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1114, 10</value>
+  </data>
+  <data name="total_para.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 58</value>
+  </data>
+  <data name="total_para.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="total_para.Text" xml:space="preserve">
+    <value>Итог</value>
+  </data>
+  <data name="&gt;&gt;total_para.Name" xml:space="preserve">
+    <value>total_para</value>
+  </data>
+  <data name="&gt;&gt;total_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;total_para.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;total_para.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="total_label.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="total_label.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 20.25pt, style=Bold, Italic</value>
+  </data>
+  <data name="total_label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="total_label.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1021, 22</value>
+  </data>
+  <data name="total_label.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 33</value>
+  </data>
+  <data name="total_label.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="total_label.Text" xml:space="preserve">
+    <value>Итог:</value>
+  </data>
+  <data name="&gt;&gt;total_label.Name" xml:space="preserve">
+    <value>total_label</value>
+  </data>
+  <data name="&gt;&gt;total_label.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;total_label.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;total_label.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="weight_para.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="weight_para.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 26.25pt, style=Bold</value>
+  </data>
+  <data name="weight_para.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="weight_para.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 16</value>
+  </data>
+  <data name="weight_para.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="weight_para.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="weight_para.Text" xml:space="preserve">
+    <value>Вес</value>
+  </data>
+  <data name="&gt;&gt;weight_para.Name" xml:space="preserve">
+    <value>weight_para</value>
+  </data>
+  <data name="&gt;&gt;weight_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;weight_para.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;weight_para.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="weight_label.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="weight_label.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 20.25pt, style=Bold, Italic</value>
+  </data>
+  <data name="weight_label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="weight_label.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 22</value>
+  </data>
+  <data name="weight_label.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 33</value>
+  </data>
+  <data name="weight_label.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="weight_label.Text" xml:space="preserve">
+    <value>Вес:</value>
+  </data>
+  <data name="&gt;&gt;weight_label.Name" xml:space="preserve">
+    <value>weight_label</value>
+  </data>
+  <data name="&gt;&gt;weight_label.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;weight_label.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;weight_label.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 107</value>
   </data>
@@ -651,11 +783,14 @@
   <metadata name="msg_clear.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 16</value>
   </metadata>
+  <metadata name="weight_clr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>229, 16</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>77</value>
+    <value>72</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -682,6 +817,12 @@
     <value>msg_clear</value>
   </data>
   <data name="&gt;&gt;msg_clear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;weight_clr.Name" xml:space="preserve">
+    <value>weight_clr</value>
+  </data>
+  <data name="&gt;&gt;weight_clr.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
