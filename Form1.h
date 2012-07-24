@@ -8,6 +8,7 @@ namespace PriceChecker {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
 
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
@@ -241,7 +242,7 @@ namespace PriceChecker {
 			// 
 			// msg_clear
 			// 
-			this->msg_clear->Interval = 3000;
+			this->msg_clear->Interval = 5000;
 			this->msg_clear->Tick += gcnew System::EventHandler(this, &Form1::msg_clear_Tick);
 			// 
 			// Form1
@@ -278,6 +279,9 @@ namespace PriceChecker {
 
 		}
 #pragma endregion
+
+private: MySqlConnection^	conn;
+private: MySqlCommand^	cmd;
 	
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e);
@@ -306,6 +310,7 @@ private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^
 			 msg_label->Visible = false;
 			 barcode_text_box->Text = "";
 		 }
+private: System::Void Form1::query(String^ bar);
 };
 }
 

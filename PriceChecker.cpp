@@ -74,7 +74,14 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 
 		if(ean13_validate(barcode))
 		{
+			String^ bar;
 
+			for (int i=0; i< len; i++)
+			{
+				bar += this->barcode_text_box->Text[i];
+			}
+
+			query(bar);
 		}
 		else
 		{
@@ -119,4 +126,48 @@ void Form1::log_write(String^ str,String^ reason)
 	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::ASCII);
 	sw->WriteLine("["+EntryDate+"]["+EntryTime+"]["+reason+"]"+" "+str);
 	sw->Close();
+}
+
+Void Form1::query(String^ bar)
+{
+	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+
+	conn = gcnew MySqlConnection(connStr);
+
+	MySqlDataReader^ reader = nullptr;
+
+	try
+	{
+		conn->Open();
+
+		cmd = gcnew MySqlCommand("SELECT a.name, b.price FROM trm_in_var C LEFT JOIN trm_in_items A ON A.id=C.item LEFT JOIN (SELECT * FROM trm_in_pricelist_items WHERE pricelist_id=1 OR pricelist_id=6) B ON B.item=c.item WHERE C.id='"+bar+"'", conn);
+
+		MySqlDataReader^ reader = cmd->ExecuteReader();
+
+		if(!reader->Read())
+		{
+			msg_label->Visible = true;
+			msg_label->Text = "Штрих-код не найден,обратитесь к продавцу!";
+			msg_clear->Enabled = true;
+		}
+
+		while(reader->Read())
+		{
+			item_name_textbox->Text = reader->GetString(0);
+			price_para->Text =reader->GetString(1);
+		}
+
+	}
+	catch (Exception^ exc)
+	{
+		msg_label->Visible = true;
+		msg_label->Text = ("Exception: " + exc->Message);
+		msg_clear->Enabled = true;
+	}
+	finally
+	{
+		if (reader != nullptr)
+			reader->Close();
+	}
 }
