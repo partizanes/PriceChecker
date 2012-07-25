@@ -61,6 +61,9 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 	int len = barcode_text_box->TextLength ;
 	Int32 barcode[13];
 
+	String^ bar;
+	String^ weight;
+
 	switch (len)
 	{
     case 0:
@@ -69,14 +72,23 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
     case 3:
     case 4:
 		break;
+	case 8:
 	case 13:
-
-		String^ bar;
-		String^ weight;
 
 		for (int i=0; i< len; i++)
 		{
 			barcode[i] = this->barcode_text_box->Text[i];
+		}
+
+		if(ean8_validate(barcode))
+		{
+
+			for (int i=0; i< len; i++)
+			{
+				bar += this->barcode_text_box->Text[i];
+			}
+			query(bar);
+			break;
 		}
 
 		if((barcode[0]- '0') == 2 && (barcode[1]- '0') == 0)
@@ -122,7 +134,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 		}
 		else
 		{
-			set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуйте еще раз");
+			set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуем найти...");
 
 			String^ bar;
 
@@ -131,14 +143,15 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 				bar += this->barcode_text_box->Text[i];
 			}
 
-		    log_write(bar,"NOTVALID[EAN13]");
+			query(bar);
+		    log_write(bar,"NOTVALID");
 		}
 		break;
 	}
 }
 
 Boolean Form1::ean13_validate(int barcode[])
-{	
+{
 	Boolean check = false;
 
 	Int32 summ = ((barcode[1]- '0')+(barcode[3]- '0')+(barcode[5]- '0')+(barcode[7]- '0')+(barcode[9]- '0')+(barcode[11]- '0'))*3+((barcode[0]- '0')+(barcode[2]- '0')+(barcode[4]- '0')+(barcode[6]- '0')+(barcode[8]- '0')+(barcode[10]- '0'));
@@ -148,6 +161,22 @@ Boolean Form1::ean13_validate(int barcode[])
 	if(summ == (barcode[12]- '0'))
 		check = true;
 	else	
+		check = false;
+
+	return check;
+}
+
+Boolean Form1::ean8_validate(int barcode[])
+{
+	Boolean check = false;
+
+	Int32 summ = (barcode[0]- '0')*3+(barcode[1]- '0')+(barcode[2]- '0')*3+(barcode[3]- '0')+(barcode[4]- '0')*3+(barcode[5]- '0')+(barcode[6]- '0')*3+(barcode[7]- '0');
+	Int32 ten = summ/10;
+
+
+	if(summ - (ten*10) == 0)
+		check = true;
+	else
 		check = false;
 
 	return check;
@@ -185,6 +214,7 @@ Void Form1::query(String^ bar)
 			price_para->Visible = true;
 			item_name_textbox->Text = reader->GetString(0);
 			price_para->Text =Convert::ToString(reader->GetInt32(1));
+			barcode_text_box->Text = "";
 		}
 		else
 		{
