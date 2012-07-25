@@ -60,6 +60,9 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  weight_para;
 	private: System::Windows::Forms::Label^  weight_label;
 	private: System::Windows::Forms::Timer^  weight_clr;
+	private: System::Windows::Forms::Timer^  pass_timer;
+
+
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -102,6 +105,7 @@ namespace PriceChecker {
 			this->msg_label = (gcnew System::Windows::Forms::Label());
 			this->msg_clear = (gcnew System::Windows::Forms::Timer(this->components));
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
+			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -117,7 +121,7 @@ namespace PriceChecker {
 			resources->ApplyResources(this->barcode_text_box, L"barcode_text_box");
 			this->barcode_text_box->Name = L"barcode_text_box";
 			this->barcode_text_box->TabStop = false;
-			this->barcode_text_box->TextChanged += gcnew System::EventHandler(this, &Form1::barcode_text_box_TextChanged);
+			this->barcode_text_box->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::barcode_text_box_KeyDown);
 			this->barcode_text_box->Leave += gcnew System::EventHandler(this, &Form1::barcode_text_box_Leave);
 			// 
 			// barcode_label
@@ -132,6 +136,8 @@ namespace PriceChecker {
 				static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->item_name_textbox->Cursor = System::Windows::Forms::Cursors::Arrow;
 			resources->ApplyResources(this->item_name_textbox, L"item_name_textbox");
+			this->item_name_textbox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			this->item_name_textbox->Name = L"item_name_textbox";
 			this->item_name_textbox->Click += gcnew System::EventHandler(this, &Form1::item_name_textbox_Click);
 			this->item_name_textbox->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::item_name_textbox_MouseClick);
@@ -277,7 +283,7 @@ namespace PriceChecker {
 			// msg_label
 			// 
 			resources->ApplyResources(this->msg_label, L"msg_label");
-			this->msg_label->ForeColor = System::Drawing::SystemColors::ActiveCaption;
+			this->msg_label->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->msg_label->Name = L"msg_label";
 			// 
 			// msg_clear
@@ -289,6 +295,11 @@ namespace PriceChecker {
 			// 
 			this->weight_clr->Interval = 8000;
 			this->weight_clr->Tick += gcnew System::EventHandler(this, &Form1::weight_clr_Tick);
+			// 
+			// pass_timer
+			// 
+			this->pass_timer->Interval = 15000;
+			this->pass_timer->Tick += gcnew System::EventHandler(this, &Form1::pass_timer_Tick);
 			// 
 			// Form1
 			// 
@@ -346,7 +357,6 @@ private: System::Void item_name_textbox_Enter(System::Object^  sender, System::E
 private: System::Void barcode_text_box_Leave(System::Object^  sender, System::EventArgs^  e) {
 			 this->barcode_text_box->Focus();
 		 }
-private: System::Void barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e);
 private: System::Boolean ean13_validate(int barcode[]);
 private: System::Boolean ean8_validate(int barcode[]);
 private: void log_write(String^ str,String^ reason);
@@ -354,7 +364,6 @@ private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^
 			 msg_clear->Enabled = false;
 			 msg_label->Text = "";
 			 msg_label->Visible = false;
-			 barcode_text_box->Text = "";
 		 }
 private: System::Void Form1::query(String^ bar);
 private: System::Void Form1::set_msg_on_timer(String^ text);
@@ -365,6 +374,8 @@ private: System::Void weight_clr_Tick(System::Object^  sender, System::EventArgs
 			 total_para->Visible = false;
 			 weight_clr->Enabled = false;
 		 }
+private: System::Void barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
+private: System::Void pass_timer_Tick(System::Object^  sender, System::EventArgs^  e);
 };
 }
 

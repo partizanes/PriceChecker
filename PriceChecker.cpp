@@ -1,6 +1,8 @@
 ﻿#include "Form1.h"
 #include <windows.h>
 
+bool pass = false;
+
 using namespace PriceChecker;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
@@ -56,100 +58,6 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	
 }
 
-Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
-{
-	int len = barcode_text_box->TextLength ;
-	Int32 barcode[13];
-
-	String^ bar;
-	String^ weight;
-
-	switch (len)
-	{
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-		break;
-	case 8:
-	case 13:
-
-		for (int i=0; i< len; i++)
-		{
-			barcode[i] = this->barcode_text_box->Text[i];
-		}
-
-		if(ean8_validate(barcode))
-		{
-
-			for (int i=0; i< len; i++)
-			{
-				bar += this->barcode_text_box->Text[i];
-			}
-			query(bar);
-			break;
-		}
-
-		if((barcode[0]- '0') == 2 && (barcode[1]- '0') == 0)
-		{
-			for (int i=0; i< 7; i++)
-			{
-				bar += this->barcode_text_box->Text[i];
-			}
-
-			for (int i=7; i< 12; i++)
-			{
-				weight += this->barcode_text_box->Text[i];
-			}
-
-			query(bar);
-
-			float w = (float(Convert::ToInt32(weight))/1000);
-
-			weight_para->Text = Convert::ToString(w);
-
-			w = float((Convert::ToInt32(price_para->Text))*(w));
-
-			weight_para->Visible = true;
-			weight_label->Visible = true;
-			total_para->Visible = true;
-			total_label->Visible = true;
-			total_para->Text = Convert::ToString(Convert::ToInt32(w));
-			weight_clr->Enabled = true;
-
-			set_msg_on_timer("Цена указана за килограмм,цена вашей покупки составит "+ Convert::ToString(Convert::ToInt32(w)));
-
-			break;
-		}
-
-		if(ean13_validate(barcode))
-		{
-			for (int i=0; i< len; i++)
-			{
-				bar += this->barcode_text_box->Text[i];
-			}
-
-			query(bar);
-		}
-		else
-		{
-			set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуем найти...");
-
-			String^ bar;
-
-			for (int i=0; i< len; i++)
-			{
-				bar += this->barcode_text_box->Text[i];
-			}
-
-			query(bar);
-		    log_write(bar,"NOTVALID");
-		}
-		break;
-	}
-}
-
 Boolean Form1::ean13_validate(int barcode[])
 {
 	Boolean check = false;
@@ -195,7 +103,8 @@ void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
+	/*	"192.168.1.100", "admin", "12345", "ukmserver"); */
+	    "192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -241,3 +150,165 @@ Void Form1::set_msg_on_timer(String^ text)
 	msg_label->Text = text;
 }
 
+Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
+{
+
+	if (e->KeyCode == Keys::Enter)
+	{
+		int len = barcode_text_box->TextLength ;
+		Int32 barcode[13];
+
+		String^ bar;
+		String^ weight;
+
+		switch (len)
+		{
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			break;
+		case 4:
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+
+			if((barcode[0]- '0') == 9 && (barcode[1]- '0') == 9 && (barcode[2]- '0') == 9 && (barcode[3]- '0') == 9)
+			{
+				pass = true;
+				msg_label->Visible = true;
+				msg_label->Text = "Проверка Пароля...";
+				barcode_text_box->Text = "";
+				barcode_text_box->UseSystemPasswordChar = true ;
+				pass_timer->Enabled = true;
+			}
+
+			break;
+		case 8:
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+			if(ean8_validate(barcode))
+			{
+				for (int i=0; i< len; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+				query(bar);
+				    break;
+			}
+			else
+			{
+				set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуем найти...");
+
+				for (int i=0; i< len; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+
+				query(bar);
+
+				log_write(bar,"NOTVALID[EAN8]");
+
+				    break;
+			}
+		case 10:
+			if(!pass)
+			{
+				set_msg_on_timer("Авторизация не пройдена!");
+				break;
+			}
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+
+			if((barcode[0]- '0') == 9 && (barcode[1]- '0') == 9 && (barcode[2]- '0') == 9 && (barcode[3]- '0') == 9 && (barcode[4]- '0') == 9 && (barcode[5]- '0') == 9 && (barcode[6]- '0') == 9 && (barcode[7]- '0') == 9 && (barcode[8]- '0') == 9  && (barcode[9]- '0') == 9) 
+			{
+				set_msg_on_timer("root@localhost:");
+				break;
+			}
+			else
+			{
+				pass = false;
+				pass_timer->Enabled = false;
+				set_msg_on_timer("Неправильный пароль!");
+				barcode_text_box->UseSystemPasswordChar = false ;
+				break;
+			}
+
+		case 13:
+
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+
+			if((barcode[0]- '0') == 2 && (barcode[1]- '0') == 0)
+			{
+				for (int i=0; i< 7; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+
+				for (int i=7; i< 12; i++)
+				{
+					weight += this->barcode_text_box->Text[i];
+				}
+
+				query(bar);
+
+				float w = (float(Convert::ToInt32(weight))/1000);
+
+				weight_para->Text = Convert::ToString(w);
+
+				w = float((Convert::ToInt32(price_para->Text))*(w));
+
+				weight_para->Visible = true;
+				weight_label->Visible = true;
+				total_para->Visible = true;
+				total_label->Visible = true;
+				total_para->Text = Convert::ToString(Convert::ToInt32(w));
+				weight_clr->Enabled = true;
+				set_msg_on_timer("Цена указана за килограмм,цена вашей покупки составит "+ Convert::ToString(Convert::ToInt32(w)));
+
+				    break;
+			}
+			if(ean13_validate(barcode))
+			{
+				for (int i=0; i< len; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+
+				query(bar);
+			}
+			else
+			{
+				set_msg_on_timer("Возможно,штрих-код был считан неверно,попробуем найти...");
+
+				for (int i=0; i< len; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+
+				query(bar);
+				log_write(bar,"NOTVALID");
+			}
+			break;
+
+		}
+	}
+}
+
+Void Form1::pass_timer_Tick(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 pass = false;
+			 msg_label->Visible = false;
+			 msg_label->Text = "";
+
+			 barcode_text_box->UseSystemPasswordChar = false ;
+			 pass_timer->Enabled = false;
+		 }
