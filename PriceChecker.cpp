@@ -329,6 +329,8 @@ Void Form1::pass_timer_Tick(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::diag_system()
 {
+	boolean off = false;
+
 	stg_panel->Visible = true;
 	msg_label->Text = "Диагностика...";
 	dir_exist_para->Text = "Проверка...";
@@ -368,6 +370,8 @@ Void Form1::diag_system()
 	{
 		mysql_check_para->Text = "Доступно!";
 		mysql_check_para->ForeColor = Color::Green ;
+
+		off = true;
 	}
 	if(!mysqlcheck())
 	{
@@ -393,7 +397,8 @@ Void Form1::diag_system()
 			Application::Exit();
 		}
 	}
-
+	if(off)
+		stg_panel->Visible = false;
 }
 
 
