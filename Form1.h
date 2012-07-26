@@ -61,6 +61,19 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  weight_label;
 	private: System::Windows::Forms::Timer^  weight_clr;
 	private: System::Windows::Forms::Timer^  pass_timer;
+	private: System::Windows::Forms::Panel^  stg_panel;
+	private: System::Windows::Forms::Label^  dir_exist_para;
+	private: System::Windows::Forms::Label^  dir_exist;
+	private: System::Windows::Forms::Label^  mysql_check_para;
+	private: System::Windows::Forms::Label^  mysql_check;
+
+	private: 
+
+
+
+
+
+
 
 
 
@@ -106,11 +119,17 @@ namespace PriceChecker {
 			this->msg_clear = (gcnew System::Windows::Forms::Timer(this->components));
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
+			this->dir_exist = (gcnew System::Windows::Forms::Label());
+			this->mysql_check = (gcnew System::Windows::Forms::Label());
+			this->mysql_check_para = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->panel3->SuspendLayout();
 			this->panel4->SuspendLayout();
+			this->stg_panel->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// barcode_text_box
@@ -301,6 +320,37 @@ namespace PriceChecker {
 			this->pass_timer->Interval = 15000;
 			this->pass_timer->Tick += gcnew System::EventHandler(this, &Form1::pass_timer_Tick);
 			// 
+			// stg_panel
+			// 
+			this->stg_panel->Controls->Add(this->mysql_check_para);
+			this->stg_panel->Controls->Add(this->mysql_check);
+			this->stg_panel->Controls->Add(this->dir_exist_para);
+			this->stg_panel->Controls->Add(this->dir_exist);
+			resources->ApplyResources(this->stg_panel, L"stg_panel");
+			this->stg_panel->Name = L"stg_panel";
+			// 
+			// dir_exist_para
+			// 
+			resources->ApplyResources(this->dir_exist_para, L"dir_exist_para");
+			this->dir_exist_para->Name = L"dir_exist_para";
+			// 
+			// dir_exist
+			// 
+			resources->ApplyResources(this->dir_exist, L"dir_exist");
+			this->dir_exist->ForeColor = System::Drawing::Color::Blue;
+			this->dir_exist->Name = L"dir_exist";
+			// 
+			// mysql_check
+			// 
+			resources->ApplyResources(this->mysql_check, L"mysql_check");
+			this->mysql_check->ForeColor = System::Drawing::Color::MediumBlue;
+			this->mysql_check->Name = L"mysql_check";
+			// 
+			// mysql_check_para
+			// 
+			resources->ApplyResources(this->mysql_check_para, L"mysql_check_para");
+			this->mysql_check_para->Name = L"mysql_check_para";
+			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
@@ -308,6 +358,7 @@ namespace PriceChecker {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->ControlBox = false;
+			this->Controls->Add(this->stg_panel);
 			this->Controls->Add(this->panel4);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->pictureBox1);
@@ -331,6 +382,8 @@ namespace PriceChecker {
 			this->panel3->PerformLayout();
 			this->panel4->ResumeLayout(false);
 			this->panel4->PerformLayout();
+			this->stg_panel->ResumeLayout(false);
+			this->stg_panel->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -350,16 +403,16 @@ private: System::Void item_name_textbox_MouseClick(System::Object^  sender, Syst
 		 }
 private: System::Void item_name_textbox_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		 }
-
 private: System::Void item_name_textbox_Enter(System::Object^  sender, System::EventArgs^  e) {
 			 this->barcode_text_box->Focus();
 		 }
+
 private: System::Void barcode_text_box_Leave(System::Object^  sender, System::EventArgs^  e) {
 			 this->barcode_text_box->Focus();
 		 }
 private: System::Boolean ean13_validate(int barcode[]);
 private: System::Boolean ean8_validate(int barcode[]);
-private: void log_write(String^ str,String^ reason);
+private: System::Void log_write(String^ str,String^ reason);
 private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^  e) {
 			 msg_clear->Enabled = false;
 			 msg_label->Text = "";
@@ -376,6 +429,8 @@ private: System::Void weight_clr_Tick(System::Object^  sender, System::EventArgs
 		 }
 private: System::Void barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
 private: System::Void pass_timer_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void diag_system();
+private: System::Boolean mysqlcheck();
 };
 }
 

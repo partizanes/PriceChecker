@@ -43,6 +43,9 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
 	Form1::CenterToScreen();
 
+	//testing system
+	diag_system();
+
 	timer1->Enabled = true;
 
 }
@@ -90,7 +93,7 @@ Boolean Form1::ean8_validate(int barcode[])
 	return check;
 }
 
-void Form1::log_write(String^ str,String^ reason)
+Void Form1::log_write(String^ str,String^ reason)
 {
 	String^ EntryTime = (gcnew DateTime())->Now.ToLongTimeString();
 	String^ EntryDate = (gcnew DateTime())->Today.ToShortDateString();
@@ -164,7 +167,18 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 		switch (len)
 		{
 		case 0:
+			break;
 		case 1:
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+			if((barcode[0]- '0') == 1)
+			{
+				set_msg_on_timer("Тестирование системы!");
+				stg_panel->Visible = true;
+			}
+			break;
 		case 2:
 		case 3:
 			break;
@@ -218,6 +232,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			if(!pass)
 			{
 				set_msg_on_timer("Авторизация не пройдена!");
+				barcode_text_box->Text = "";
 				break;
 			}
 			for (int i=0; i< len; i++)
@@ -304,11 +319,108 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 }
 
 Void Form1::pass_timer_Tick(System::Object^  sender, System::EventArgs^  e)
-		 {
-			 pass = false;
-			 msg_label->Visible = false;
-			 msg_label->Text = "";
+{
+	pass = false;
+	msg_label->Visible = false;
+	msg_label->Text = "";
+	barcode_text_box->UseSystemPasswordChar = false ;
+	pass_timer->Enabled = false;
+}
 
-			 barcode_text_box->UseSystemPasswordChar = false ;
-			 pass_timer->Enabled = false;
-		 }
+Void Form1::diag_system()
+{
+	stg_panel->Visible = true;
+	msg_label->Text = "Диагностика...";
+	dir_exist_para->Text = "Проверка...";
+	mysql_check_para->Text = "Проверка...";
+
+	if(Directory::Exists(Environment::CurrentDirectory+"/image/"))
+	{
+		dir_exist_para->Text = "Доступно!";
+		dir_exist_para->ForeColor = Color::Green ;
+	}
+
+	if(!Directory::Exists(Environment::CurrentDirectory+"/image/"))
+	{
+		dir_exist_para->ForeColor = Color::Red ;
+		dir_exist_para->Text = "Не доступно!";
+
+		String^ message = "Папка с рекламой не обнаружена,проверить еще раз?";
+		String^ caption = "Ошибка";
+
+		MessageBoxButtons buttons = MessageBoxButtons::YesNo;
+		System::Windows::Forms::DialogResult result;
+
+		result = MessageBox::Show( this, message, caption, buttons );
+
+		if ( result == ::DialogResult::Yes )
+		{
+			diag_system();
+		}
+		else
+		{
+			//TODO Не закрывать программу при запуске,а генерить изображение по умолчанию.
+			Application::Exit();
+		}
+	}
+
+	if(mysqlcheck())
+	{
+		mysql_check_para->Text = "Доступно!";
+		mysql_check_para->ForeColor = Color::Green ;
+	}
+	if(!mysqlcheck())
+	{
+		mysql_check_para->ForeColor = Color::Red ;
+		mysql_check_para->Text = "Не доступно!";
+
+		String^ message = "Не удалось соединиться с Mysql сервером,попробывать еще раз?";
+		String^ caption = "Ошибка";
+
+		MessageBoxButtons buttons = MessageBoxButtons::YesNo;
+		System::Windows::Forms::DialogResult result;
+
+		result = MessageBox::Show( this, message, caption, buttons );
+
+		if ( result == ::DialogResult::Yes )
+		{
+			mysql_check_para->Text = "Проверка...";
+			diag_system();
+		}
+		else
+		{
+			//TODO Не закрывать программу при запуске,а генерить изображение по умолчанию.
+			Application::Exit();
+		}
+	}
+
+}
+
+
+Boolean Form1::mysqlcheck()
+{
+	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		/*	"192.168.1.100", "admin", "12345", "ukmserver"); */
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+
+	conn = gcnew MySqlConnection(connStr);
+
+	MySqlDataReader^ reader = nullptr;
+
+	try
+	{
+		conn->Open();
+		return true;
+	}
+	catch (Exception^ exc)
+	{
+		set_msg_on_timer("Exception: " + exc->Message);
+		return false;
+	}
+	finally
+	{
+		if (reader != nullptr)
+			reader->Close();
+	}
+
+}
