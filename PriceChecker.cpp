@@ -29,6 +29,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	action_label->Visible = false;
 	balance_label->Visible = false;
 	msg_label->Visible = false;
+	panel4->Visible = false;
 	weight_label->Visible = false;
 	total_label->Visible = false;
 
@@ -38,6 +39,8 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	price_para->Visible = false;
 	weight_para->Visible = false;
 	total_para->Visible = false;
+
+	panel4->Visible = false;
 
 	//full screen size after form load
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
@@ -106,8 +109,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-	/*	"192.168.1.100", "admin", "12345", "ukmserver"); */
-	    "192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+	    /*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -127,6 +130,8 @@ Void Form1::query(String^ bar)
 			item_name_textbox->Text = reader->GetString(0);
 			price_para->Text =Convert::ToString(reader->GetInt32(1));
 			barcode_text_box->Text = "";
+			msg_label->Text = "";
+			panel4->Visible = false;
 		}
 		else
 		{
@@ -192,10 +197,16 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			{
 				pass = true;
 				msg_label->Visible = true;
+				panel4->Visible = true;
 				msg_label->Text = "Проверка Пароля...";
 				barcode_text_box->Text = "";
 				barcode_text_box->UseSystemPasswordChar = true ;
 				pass_timer->Enabled = true;
+			}
+
+			if((barcode[0]- '0') == 0 && (barcode[1]- '0') == 0 && (barcode[2]- '0') == 0 && (barcode[3]- '0') == 0)
+			{
+				Application::Exit();
 			}
 
 			break;
@@ -223,6 +234,8 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				}
 
 				query(bar);
+
+				msg_label->Text = "";
 
 				log_write(bar,"NOTVALID[EAN8]");
 
@@ -322,6 +335,7 @@ Void Form1::pass_timer_Tick(System::Object^  sender, System::EventArgs^  e)
 {
 	pass = false;
 	msg_label->Visible = false;
+	panel4->Visible = false;
 	msg_label->Text = "";
 	barcode_text_box->UseSystemPasswordChar = false ;
 	pass_timer->Enabled = false;
@@ -332,6 +346,8 @@ Void Form1::diag_system()
 	boolean off = false;
 
 	stg_panel->Visible = true;
+	panel4->Visible = true;
+	msg_label->Visible = true;
 	msg_label->Text = "Диагностика...";
 	dir_exist_para->Text = "Проверка...";
 	mysql_check_para->Text = "Проверка...";
@@ -398,15 +414,20 @@ Void Form1::diag_system()
 		}
 	}
 	if(off)
+	{
+		panel4->Visible = false;
+		msg_label->Visible = false;
+		msg_label->Text = "";
 		stg_panel->Visible = false;
+	}
 }
 
 
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*	"192.168.1.100", "admin", "12345", "ukmserver"); */
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+			"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
