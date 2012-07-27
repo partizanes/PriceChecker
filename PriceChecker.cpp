@@ -118,7 +118,12 @@ Void Form1::query(String^ bar)
 	{
 		conn->Open();
 
-		cmd = gcnew MySqlCommand("SELECT a.name, b.price FROM trm_in_var C LEFT JOIN trm_in_items A ON A.id=C.item LEFT JOIN (SELECT * FROM trm_in_pricelist_items WHERE pricelist_id=1 OR pricelist_id=6) B ON B.item=c.item WHERE C.id='"+bar+"'", conn);
+		cmd = gcnew MySqlCommand("SELECT a.name, b.price \n"
+			 "FROM trm_in_var C \n"
+			 "LEFT JOIN trm_in_items A ON A.id=C.item \n"
+			 "LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
+			 "WHERE C.id='"+bar+"' \n"
+			 "AND (b.pricelist_id=1)", conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
