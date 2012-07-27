@@ -118,6 +118,8 @@ Void Form1::query(String^ bar)
 	{
 		conn->Open();
 
+		//TODO Вынести ИД прайс листа в конфиг
+
 		cmd = gcnew MySqlCommand("SELECT a.name, b.price \n"
 			 "FROM trm_in_var C \n"
 			 "LEFT JOIN trm_in_items A ON A.id=C.item \n"
@@ -298,7 +300,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				if (Convert::ToInt32(weight) == 0)
 				{
 					barcode_text_box->Text = "";
-					set_msg_on_timer ("Вес товара не можеты быть равен нулю!") ;
+					set_msg_on_timer ("Вес товара не может быть равен нулю!") ;
 					return;
 				}
 
