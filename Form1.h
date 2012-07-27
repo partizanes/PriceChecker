@@ -52,7 +52,9 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::Panel^  panel3;
 	private: System::Windows::Forms::Panel^  panel4;
-	private: System::Windows::Forms::Label^  msg_label;
+	public: System::Windows::Forms::Label^  msg_label;
+	private: 
+
 	private: System::Windows::Forms::Timer^  msg_clear;
 	private: System::Windows::Forms::Label^  total_para;
 
@@ -66,6 +68,8 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  dir_exist;
 	private: System::Windows::Forms::Label^  mysql_check_para;
 	private: System::Windows::Forms::Label^  mysql_check;
+	private: System::Windows::Forms::Button^  close_menu;
+	private: System::Windows::Forms::Button^  test_button;
 
 	private: 
 
@@ -120,6 +124,8 @@ namespace PriceChecker {
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->test_button = (gcnew System::Windows::Forms::Button());
+			this->close_menu = (gcnew System::Windows::Forms::Button());
 			this->mysql_check_para = (gcnew System::Windows::Forms::Label());
 			this->mysql_check = (gcnew System::Windows::Forms::Label());
 			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
@@ -328,12 +334,31 @@ namespace PriceChecker {
 			// 
 			// stg_panel
 			// 
+			this->stg_panel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->stg_panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->stg_panel->Controls->Add(this->test_button);
+			this->stg_panel->Controls->Add(this->close_menu);
 			this->stg_panel->Controls->Add(this->mysql_check_para);
 			this->stg_panel->Controls->Add(this->mysql_check);
 			this->stg_panel->Controls->Add(this->dir_exist_para);
 			this->stg_panel->Controls->Add(this->dir_exist);
 			resources->ApplyResources(this->stg_panel, L"stg_panel");
 			this->stg_panel->Name = L"stg_panel";
+			// 
+			// test_button
+			// 
+			resources->ApplyResources(this->test_button, L"test_button");
+			this->test_button->Name = L"test_button";
+			this->test_button->UseVisualStyleBackColor = true;
+			this->test_button->Click += gcnew System::EventHandler(this, &Form1::test_button_Click);
+			// 
+			// close_menu
+			// 
+			resources->ApplyResources(this->close_menu, L"close_menu");
+			this->close_menu->Name = L"close_menu";
+			this->close_menu->UseVisualStyleBackColor = true;
+			this->close_menu->Click += gcnew System::EventHandler(this, &Form1::close_menu_Click);
 			// 
 			// mysql_check_para
 			// 
@@ -437,8 +462,10 @@ private: System::Void weight_clr_Tick(System::Object^  sender, System::EventArgs
 		 }
 private: System::Void barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
 private: System::Void pass_timer_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void close_menu_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void diag_system();
 private: System::Boolean mysqlcheck();
+private: System::Void test_button_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
 

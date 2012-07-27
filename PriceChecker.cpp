@@ -40,8 +40,6 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	weight_para->Visible = false;
 	total_para->Visible = false;
 
-	panel4->Visible = false;
-
 	//full screen size after form load
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
 	Form1::CenterToScreen();
@@ -109,8 +107,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-	    /*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
+	    "192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -135,6 +133,7 @@ Void Form1::query(String^ bar)
 		}
 		else
 		{
+			barcode_text_box->Text = "";
 			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
 		}
 
@@ -147,12 +146,13 @@ Void Form1::query(String^ bar)
 	{
 		if (reader != nullptr)
 			reader->Close();
-		msg_clear->Enabled = true;
+		//msg_clear->Enabled = true;
 	}
 }
 
 Void Form1::set_msg_on_timer(String^ text)
 {
+	panel4->Visible = true;
 	msg_clear->Enabled = true;
 	msg_label->Visible = true;
 	msg_label->Text = text;
@@ -182,6 +182,12 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			{
 				set_msg_on_timer("Тестирование системы!");
 				stg_panel->Visible = true;
+				barcode_text_box->Text = "";
+			}
+			else
+			{
+				barcode_text_box->Text = "";
+				set_msg_on_timer("Данные не верны!");
 			}
 			break;
 		case 2:
@@ -235,8 +241,6 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 				query(bar);
 
-				msg_label->Text = "";
-
 				log_write(bar,"NOTVALID[EAN8]");
 
 				    break;
@@ -285,6 +289,14 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				{
 					weight += this->barcode_text_box->Text[i];
 				}
+
+				if (Convert::ToInt32(weight) == 0)
+				{
+					barcode_text_box->Text = "";
+					set_msg_on_timer ("Вес товара не можеты быть равен нулю!") ;
+					return;
+				}
+
 
 				query(bar);
 
@@ -426,8 +438,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-			"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		/*	"192.168.1.100", "admin", "12345", "ukmserver");*/
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -449,4 +461,27 @@ Boolean Form1::mysqlcheck()
 			reader->Close();
 	}
 
+}
+
+Void Form1::close_menu_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	stg_panel->Visible = false;
+	msg_label->Visible = false;
+	panel4->Visible = false;
+	msg_label->Text = "";
+
+}
+
+Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	dir_exist_para->Text = "Проверка...";
+	mysql_check_para->Text = "Проверка...";
+
+	diag_system();
+
+	stg_panel->Visible = true;
+	panel4->Visible = true;
+	msg_label->Visible = true;
+
+	msg_label->Text = "Тестирование системы";
 }
