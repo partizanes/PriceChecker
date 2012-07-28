@@ -44,6 +44,10 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
 	Form1::CenterToScreen();
 
+	//lineshape
+	lineShape1->Visible = false;
+	lineShape2->Visible = false;
+
 	//testing system
 	diag_system();
 
@@ -139,6 +143,8 @@ Void Form1::query(String^ bar)
 			barcode_text_box->Text = "";
 			msg_label->Text = "";
 			panel4->Visible = false;
+
+			action_check(bar);
 		}
 		else
 		{
@@ -177,6 +183,15 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 		String^ bar;
 		String^ weight;
+
+		old_price_label->Visible = false;
+		old_price_para->Visible = false;
+		action_visible->Enabled = false;
+		action_label->Visible = false;
+
+		old_price_para->Text = "";
+		lineShape1->Visible = false;
+		lineShape2->Visible = false;
 
 		switch (len)
 		{
@@ -514,4 +529,47 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 	msg_label->Visible = true;
 
 	msg_label->Text = "                       Тестирование системы";
+}
+
+Void Form1::action_check(String^ bar)
+{
+	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		"192.168.1.11", "pricechecker", "7194622Parti", "action");
+	/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+
+	conn = gcnew MySqlConnection(connStr);
+
+	MySqlDataReader^ reader = nullptr;
+
+	try
+	{
+		conn->Open();
+
+		//TODO Вынести ИД прайс листа в конфиг
+		//TODO Срок действия акции в базу ,проверку в функции действует ли акция
+
+		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+(price_para->Text), conn);
+
+		MySqlDataReader^ reader = cmd->ExecuteReader();
+
+		if(reader->Read())
+		{
+			action_label->Visible = true;
+			action_visible->Enabled = true;
+			old_price_label->Visible = true;
+			lineShape1->Visible = true;
+			lineShape2->Visible = true;
+			old_price_para->Visible = true;
+			old_price_para->Text = reader->GetString(0);
+		}
+	}
+	catch (Exception^ exc)
+	{
+		set_msg_on_timer("Exception: " + exc->Message);
+	}
+	finally
+	{
+		if (reader != nullptr)
+			reader->Close();
+	}
 }

@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+bool act_vis = true;
+
 namespace PriceChecker {
 
 	using namespace System;
@@ -70,6 +72,10 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  mysql_check;
 	private: System::Windows::Forms::Button^  close_menu;
 	private: System::Windows::Forms::Button^  test_button;
+	private: System::Windows::Forms::Timer^  action_visible;
+	private: Microsoft::VisualBasic::PowerPacks::ShapeContainer^  shapeContainer1;
+	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape1;
+	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape2;
 
 	private: 
 
@@ -118,6 +124,9 @@ namespace PriceChecker {
 			this->total_label = (gcnew System::Windows::Forms::Label());
 			this->weight_para = (gcnew System::Windows::Forms::Label());
 			this->weight_label = (gcnew System::Windows::Forms::Label());
+			this->shapeContainer1 = (gcnew Microsoft::VisualBasic::PowerPacks::ShapeContainer());
+			this->lineShape2 = (gcnew Microsoft::VisualBasic::PowerPacks::LineShape());
+			this->lineShape1 = (gcnew Microsoft::VisualBasic::PowerPacks::LineShape());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->msg_label = (gcnew System::Windows::Forms::Label());
 			this->msg_clear = (gcnew System::Windows::Forms::Timer(this->components));
@@ -130,6 +139,7 @@ namespace PriceChecker {
 			this->mysql_check = (gcnew System::Windows::Forms::Label());
 			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
 			this->dir_exist = (gcnew System::Windows::Forms::Label());
+			this->action_visible = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -216,7 +226,9 @@ namespace PriceChecker {
 			// old_price_para
 			// 
 			resources->ApplyResources(this->old_price_para, L"old_price_para");
-			this->old_price_para->ForeColor = System::Drawing::SystemColors::GradientInactiveCaption;
+			this->old_price_para->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->old_price_para->ForeColor = System::Drawing::Color::Black;
 			this->old_price_para->Name = L"old_price_para";
 			// 
 			// pictureBox1
@@ -265,6 +277,7 @@ namespace PriceChecker {
 			this->panel3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->panel3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel3->Controls->Add(this->action_label);
 			this->panel3->Controls->Add(this->total_para);
 			this->panel3->Controls->Add(this->total_label);
 			this->panel3->Controls->Add(this->weight_para);
@@ -272,9 +285,10 @@ namespace PriceChecker {
 			this->panel3->Controls->Add(this->balance_para);
 			this->panel3->Controls->Add(this->old_price_label);
 			this->panel3->Controls->Add(this->balance_label);
-			this->panel3->Controls->Add(this->old_price_para);
 			this->panel3->Controls->Add(this->price_textbox);
 			this->panel3->Controls->Add(this->price_para);
+			this->panel3->Controls->Add(this->shapeContainer1);
+			this->panel3->Controls->Add(this->old_price_para);
 			resources->ApplyResources(this->panel3, L"panel3");
 			this->panel3->Name = L"panel3";
 			// 
@@ -301,12 +315,29 @@ namespace PriceChecker {
 			this->weight_label->ForeColor = System::Drawing::Color::DarkRed;
 			this->weight_label->Name = L"weight_label";
 			// 
+			// shapeContainer1
+			// 
+			resources->ApplyResources(this->shapeContainer1, L"shapeContainer1");
+			this->shapeContainer1->Name = L"shapeContainer1";
+			this->shapeContainer1->Shapes->AddRange(gcnew cli::array< Microsoft::VisualBasic::PowerPacks::Shape^  >(2) {this->lineShape2, 
+				this->lineShape1});
+			this->shapeContainer1->TabStop = false;
+			// 
+			// lineShape2
+			// 
+			resources->ApplyResources(this->lineShape2, L"lineShape2");
+			this->lineShape2->Name = L"lineShape2";
+			// 
+			// lineShape1
+			// 
+			resources->ApplyResources(this->lineShape1, L"lineShape1");
+			this->lineShape1->Name = L"lineShape1";
+			// 
 			// panel4
 			// 
 			this->panel4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->panel4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel4->Controls->Add(this->action_label);
 			this->panel4->Controls->Add(this->msg_label);
 			resources->ApplyResources(this->panel4, L"panel4");
 			this->panel4->Name = L"panel4";
@@ -381,6 +412,11 @@ namespace PriceChecker {
 			resources->ApplyResources(this->dir_exist, L"dir_exist");
 			this->dir_exist->ForeColor = System::Drawing::Color::Blue;
 			this->dir_exist->Name = L"dir_exist";
+			// 
+			// action_visible
+			// 
+			this->action_visible->Interval = 700;
+			this->action_visible->Tick += gcnew System::EventHandler(this, &Form1::action_visible_Tick);
 			// 
 			// Form1
 			// 
@@ -464,11 +500,25 @@ private: System::Void weight_clr_Tick(System::Object^  sender, System::EventArgs
 private: System::Void barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
 private: System::Void pass_timer_Tick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void close_menu_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void action_check(String^ bar);
 private: System::Void diag_system();
 private: System::Boolean mysqlcheck();
 private: System::Void test_button_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e) {
 			 log_write("Терминал остановлен!","SYSTEM");
+		 }
+
+private: System::Void action_visible_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 if(act_vis)
+			 {
+				 act_vis = false;
+				 action_label->Visible = false;
+			 }
+			 else
+			 {
+				 act_vis = true;
+				 action_label->Visible = true;
+			 }
 		 }
 };
 }

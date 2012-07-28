@@ -334,7 +334,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;balance_label.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="balance_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -367,22 +367,19 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;balance_para.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="action_label.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+    <value>5</value>
   </data>
   <data name="action_label.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Mistral, 15.75pt, style=Bold</value>
+    <value>BirchCTT, 17.9999981pt, style=Bold</value>
   </data>
   <data name="action_label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="action_label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1081, 7</value>
+    <value>735, 22</value>
   </data>
   <data name="action_label.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 26</value>
+    <value>257, 42</value>
   </data>
   <data name="action_label.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -397,7 +394,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;action_label.Parent" xml:space="preserve">
-    <value>panel4</value>
+    <value>panel3</value>
   </data>
   <data name="&gt;&gt;action_label.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -433,25 +430,22 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_label.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="old_price_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="old_price_para.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="old_price_para.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 21.75pt, style=Italic, Strikeout</value>
+    <value>Tahoma, 26.25pt, style=Italic</value>
   </data>
   <data name="old_price_para.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="old_price_para.Location" type="System.Drawing.Point, System.Drawing">
-    <value>357, 29</value>
+    <value>357, 23</value>
   </data>
   <data name="old_price_para.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 35</value>
+    <value>108, 42</value>
   </data>
   <data name="old_price_para.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -469,7 +463,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_para.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="pictureBox1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -607,7 +601,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;total_para.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="total_label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -640,7 +634,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;total_label.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="weight_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -673,7 +667,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;weight_para.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="weight_label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -706,7 +700,49 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;weight_label.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <metadata name="lineShape2.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31, 84, 27</value>
+  </metadata>
+  <metadata name="lineShape2.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31</value>
+  </metadata>
+  <metadata name="lineShape2.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>84, 27</value>
+  </metadata>
+  <metadata name="lineShape1.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31, 84, 27</value>
+  </metadata>
+  <metadata name="lineShape1.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31</value>
+  </metadata>
+  <metadata name="lineShape1.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>84, 27</value>
+  </metadata>
+  <data name="shapeContainer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="shapeContainer1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="shapeContainer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1270, 69</value>
+  </data>
+  <data name="shapeContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;shapeContainer1.Name" xml:space="preserve">
+    <value>shapeContainer1</value>
+  </data>
+  <data name="&gt;&gt;shapeContainer1.Type" xml:space="preserve">
+    <value>Microsoft.VisualBasic.PowerPacks.ShapeContainer, Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="&gt;&gt;shapeContainer1.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;shapeContainer1.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 107</value>
@@ -728,6 +764,87 @@
   </data>
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <metadata name="lineShape2.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31, 84, 27</value>
+  </metadata>
+  <metadata name="lineShape2.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31</value>
+  </metadata>
+  <metadata name="lineShape2.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>84, 27</value>
+  </metadata>
+  <data name="lineShape2.BorderWidth" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lineShape2.X1" type="System.Int32, mscorlib">
+    <value>450</value>
+  </data>
+  <data name="lineShape2.X2" type="System.Int32, mscorlib">
+    <value>366</value>
+  </data>
+  <data name="lineShape2.Y1" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="lineShape2.Y2" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <metadata name="lineShape1.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31, 84, 27</value>
+  </metadata>
+  <metadata name="lineShape1.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>366, 31</value>
+  </metadata>
+  <metadata name="lineShape1.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>84, 27</value>
+  </metadata>
+  <data name="lineShape1.BorderWidth" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lineShape1.X1" type="System.Int32, mscorlib">
+    <value>366</value>
+  </data>
+  <data name="lineShape1.X2" type="System.Int32, mscorlib">
+    <value>450</value>
+  </data>
+  <data name="lineShape1.Y1" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="lineShape1.Y2" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="&gt;&gt;msg_label.Name" xml:space="preserve">
+    <value>msg_label</value>
+  </data>
+  <data name="&gt;&gt;msg_label.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;msg_label.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;msg_label.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1271, 36</value>
+  </data>
+  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="msg_label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -757,28 +874,7 @@
     <value>panel4</value>
   </data>
   <data name="&gt;&gt;msg_label.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1271, 36</value>
-  </data>
-  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
-    <value>panel4</value>
-  </data>
-  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <metadata name="msg_clear.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 16</value>
@@ -789,6 +885,102 @@
   <metadata name="pass_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>335, 16</value>
   </metadata>
+  <data name="&gt;&gt;test_button.Name" xml:space="preserve">
+    <value>test_button</value>
+  </data>
+  <data name="&gt;&gt;test_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;test_button.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;test_button.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Name" xml:space="preserve">
+    <value>close_menu</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;close_menu.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Name" xml:space="preserve">
+    <value>mysql_check_para</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Name" xml:space="preserve">
+    <value>mysql_check</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Name" xml:space="preserve">
+    <value>dir_exist_para</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Name" xml:space="preserve">
+    <value>dir_exist</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="stg_panel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 224</value>
+  </data>
+  <data name="stg_panel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1225, 130</value>
+  </data>
+  <data name="stg_panel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="stg_panel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Name" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="test_button.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
@@ -972,35 +1164,14 @@
   <data name="&gt;&gt;dir_exist.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="stg_panel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 224</value>
-  </data>
-  <data name="stg_panel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1225, 130</value>
-  </data>
-  <data name="stg_panel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="stg_panel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Name" xml:space="preserve">
-    <value>stg_panel</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
+  <metadata name="action_visible.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>441, 16</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>50</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -1008,8 +1179,8 @@
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABQAAAAQACAYAAAC+k/RDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDAAA
-        CwwBP0AiyAAA/3lJREFUeF7MvQl8lPW59j9arbZ2167a09N69NjXeqxLj9s5LrVqtVi1VMANXEAERUFA
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCQAA
+        CwkBEvpHPgAA/3lJREFUeF7MvQl8lPW59j9arbZ2167a09N69NjXeqxLj9s5LrVqtVi1VMANXEAERUFA
         BBdQXEBURFFQZJNNWURAEASMLAoBZTEStiCEJQlLEkkmmTDjzO//ve4nT/LMZJKZAH3fPx+fDzjzzLP8
         lnu97us+wi3q40JHxkOhI74VCsWOCEXcMaFxH+aFrjn330Lx6P7Q9477TihxxHdDpXtLQ7/899+FjkzE
         Q4kjOTflz7d/+ePQd445MhTaVxXaH64JvTN/dYNz9EHrK85K+lznpX6W9oeBD3/4vWPt//z7BH//wdK8
@@ -35571,6 +35742,18 @@
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;lineShape2.Name" xml:space="preserve">
+    <value>lineShape2</value>
+  </data>
+  <data name="&gt;&gt;lineShape2.Type" xml:space="preserve">
+    <value>Microsoft.VisualBasic.PowerPacks.LineShape, Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="&gt;&gt;lineShape1.Name" xml:space="preserve">
+    <value>lineShape1</value>
+  </data>
+  <data name="&gt;&gt;lineShape1.Type" xml:space="preserve">
+    <value>Microsoft.VisualBasic.PowerPacks.LineShape, Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="&gt;&gt;msg_clear.Name" xml:space="preserve">
     <value>msg_clear</value>
   </data>
@@ -35587,6 +35770,12 @@
     <value>pass_timer</value>
   </data>
   <data name="&gt;&gt;pass_timer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;action_visible.Name" xml:space="preserve">
+    <value>action_visible</value>
+  </data>
+  <data name="&gt;&gt;action_visible.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
