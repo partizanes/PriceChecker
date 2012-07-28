@@ -189,7 +189,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			}
 			if((barcode[0]- '0') == 1)
 			{
-				set_msg_on_timer("Тестирование системы!");
+				set_msg_on_timer("Тестирование системы");
 				stg_panel->Visible = true;
 				barcode_text_box->Text = "";
 			}
@@ -287,7 +287,9 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 			if((barcode[0]- '0') == 9 && (barcode[1]- '0') == 9 && (barcode[2]- '0') == 9 && (barcode[3]- '0') == 9 && (barcode[4]- '0') == 9 && (barcode[5]- '0') == 9 && (barcode[6]- '0') == 9 && (barcode[7]- '0') == 9 && (barcode[8]- '0') == 9  && (barcode[9]- '0') == 9) 
 			{
-				set_msg_on_timer("root@localhost:");
+				set_msg_on_timer("                                       Настройки");
+				barcode_text_box->Text = "";
+				stg_panel->Visible = true;
 				break;
 			}
 			else
@@ -511,5 +513,5 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 	panel4->Visible = true;
 	msg_label->Visible = true;
 
-	msg_label->Text = "Тестирование системы";
+	msg_label->Text = "                       Тестирование системы";
 }
