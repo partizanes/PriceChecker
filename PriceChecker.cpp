@@ -49,6 +49,8 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	timer1->Enabled = true;
 
+	log_write("Терминал запущен!","SYSTEM");
+
 }
 
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -99,7 +101,7 @@ Void Form1::log_write(String^ str,String^ reason)
 	String^ EntryTime = (gcnew DateTime())->Now.ToLongTimeString();
 	String^ EntryDate = (gcnew DateTime())->Today.ToShortDateString();
 	String^ fileName = "PriceChecker.log";
-	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::ASCII);
+	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::UTF8);
 	sw->WriteLine("["+EntryDate+"]["+EntryTime+"]["+reason+"]"+" "+str);
 	sw->Close();
 }
@@ -107,8 +109,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
-	    "192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+	    /*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -223,6 +225,25 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			}
 
 			break;
+		case 5:
+			//короткие коды на весовые товары ,цена за килограмм
+			//практическое применение:сверка продавцами ценников и цен на кассе с помощью прайсчекера.
+
+			for (int i=0; i< len; i++)
+			{
+				barcode[i] = this->barcode_text_box->Text[i];
+			}
+
+			for (int i=0; i< len; i++)
+			{
+				bar += this->barcode_text_box->Text[i];
+			}
+
+			//так как на ценниках используеться короткий штрихкод,при запросе в базу к нему приходиться дописывать "20"
+
+			query("20"+bar);
+			    break;
+
 		case 8:
 			for (int i=0; i< len; i++)
 			{
@@ -445,8 +466,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*	"192.168.1.100", "admin", "12345", "ukmserver");*/
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+			"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 

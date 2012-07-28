@@ -403,6 +403,7 @@ namespace PriceChecker {
 			this->ShowIcon = false;
 			this->ShowInTaskbar = false;
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Form1::Form1_FormClosed);
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
@@ -466,6 +467,9 @@ private: System::Void close_menu_Click(System::Object^  sender, System::EventArg
 private: System::Void diag_system();
 private: System::Boolean mysqlcheck();
 private: System::Void test_button_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e) {
+			 log_write("Терминал остановлен!","SYSTEM");
+		 }
 };
 }
 
