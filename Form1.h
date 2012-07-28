@@ -504,6 +504,8 @@ private: System::Void action_check(String^ bar);
 private: System::Void diag_system();
 private: System::Boolean mysqlcheck();
 private: System::Void test_button_Click(System::Object^  sender, System::EventArgs^  e);
+private: char* SystemStringToChar(System::String^ string);
+private: String^ CharToSystemString(char* ch);
 private: System::Void Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e) {
 			 log_write("Терминал остановлен!","SYSTEM");
 		 }

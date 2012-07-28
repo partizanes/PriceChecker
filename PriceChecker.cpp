@@ -113,8 +113,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-	    /*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+	 /*"192.168.1.100", "admin", "12345", "ukmserver");*/
+	   "192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -125,13 +125,15 @@ Void Form1::query(String^ bar)
 		conn->Open();
 
 		//TODO Вынести ИД прайс листа в конфиг
+		char buf[255];
+		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
 		cmd = gcnew MySqlCommand("SELECT a.name, b.price \n"
 			 "FROM trm_in_var C \n"
 			 "LEFT JOIN trm_in_items A ON A.id=C.item \n"
 			 "LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
 			 "WHERE C.id='"+bar+"' \n"
-			 "AND (b.pricelist_id=1)", conn);
+			 "AND (b.pricelist_id="+CharToSystemString(buf)+")", conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -483,8 +485,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-			"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -534,8 +536,8 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 Void Form1::action_check(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.11", "pricechecker", "7194622Parti", "action");
-	/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		/*"192.168.1.11", "pricechecker", "7194622Parti", "action");*/
+		"192.168.1.3", "root", "7194622Parti", "action");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -545,7 +547,6 @@ Void Form1::action_check(String^ bar)
 	{
 		conn->Open();
 
-		//TODO Вынести ИД прайс листа в конфиг
 		//TODO Срок действия акции в базу ,проверку в функции действует ли акция
 
 		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+(price_para->Text), conn);
@@ -572,4 +573,20 @@ Void Form1::action_check(String^ bar)
 		if (reader != nullptr)
 			reader->Close();
 	}
+}
+
+char* Form1::SystemStringToChar(System::String^ string)
+{
+	return (char*)(void*)Marshal::StringToHGlobalAnsi(string);
+}
+
+String^ Form1::CharToSystemString(char* ch)
+{
+	char * chr=new char[]=ch;
+	System::String^ str;
+	for(int i=0;chr[i]!='\0';i++)
+	{
+		str+=wchar_t(ch[i]);
+	}
+	return str;
 }
