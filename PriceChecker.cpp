@@ -113,8 +113,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-	 /*"192.168.1.100", "admin", "12345", "ukmserver");*/
-	   "192.168.1.3", "root", "7194622Parti", "ukmserver");
+	 "192.168.1.100", "admin", "12345", "ukmserver");
+	 /*  "192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -485,8 +485,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -536,8 +536,8 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 Void Form1::action_check(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.11", "pricechecker", "7194622Parti", "action");*/
-		"192.168.1.3", "root", "7194622Parti", "action");
+		"192.168.1.11", "pricechecker", "7194622Parti", "action");
+		/*"192.168.1.3", "root", "7194622Parti", "action");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -547,9 +547,9 @@ Void Form1::action_check(String^ bar)
 	{
 		conn->Open();
 
-		//TODO Срок действия акции в базу ,проверку в функции действует ли акция
+		String^ EntryDate = (gcnew DateTime())->Now.ToShortDateString();
 
-		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+(price_para->Text), conn);
+		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+price_para->Text+" AND start_action <= '"+EntryDate+"' AND stop_action >= '"+EntryDate+"'", conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
