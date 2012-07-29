@@ -124,7 +124,6 @@ Void Form1::query(String^ bar)
 	{
 		conn->Open();
 
-		//TODO Вынести ИД прайс листа в конфиг
 		char buf[255];
 		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
@@ -436,7 +435,7 @@ Void Form1::diag_system()
 		}
 		else
 		{
-			//TODO Не закрывать программу при запуске,а генерить изображение по умолчанию.
+			//TODO Не закрывать программу при запуске,а генерить логотип.
 			Application::Exit();
 		}
 	}
@@ -468,7 +467,7 @@ Void Form1::diag_system()
 		}
 		else
 		{
-			//TODO Не закрывать программу при запуске,а генерить изображение по умолчанию.
+			//TODO Предложить изменить настройки сервера.
 			Application::Exit();
 		}
 	}
