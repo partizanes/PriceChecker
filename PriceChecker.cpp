@@ -598,3 +598,46 @@ String^ Form1::CharToSystemString(char* ch)
 	}
 	return str;
 }
+
+Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
+		"192.168.1.3", "root", "7194622Parti", "action");
+
+	conn = gcnew MySqlConnection(connStr);
+
+	MySqlDataReader^ reader = nullptr;
+
+	try
+	{
+		conn->Open();
+
+		cmd = gcnew MySqlCommand("OPTIMIZE TABLE action_price", conn);
+
+		MySqlDataReader^ reader = cmd->ExecuteReader();
+
+		if(reader->Read())
+		{
+			set_msg_on_timer(reader->GetString(3));
+		}
+		else
+		{
+			set_msg_on_timer("                       Ошибка!");
+		}
+		while(reader->Read())
+		{
+			set_msg_on_timer("                       "+reader->GetString(3));
+		}
+
+	}
+	catch (Exception^ exc)
+	{
+		set_msg_on_timer("Exception: " + exc->Message);
+	}
+	finally
+	{
+		if (reader != nullptr)
+			reader->Close();
+	}
+}

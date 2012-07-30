@@ -76,6 +76,7 @@ namespace PriceChecker {
 	private: Microsoft::VisualBasic::PowerPacks::ShapeContainer^  shapeContainer1;
 	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape1;
 	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape2;
+	private: System::Windows::Forms::Button^  opt_button;
 
 	private: 
 
@@ -140,6 +141,7 @@ namespace PriceChecker {
 			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
 			this->dir_exist = (gcnew System::Windows::Forms::Label());
 			this->action_visible = (gcnew System::Windows::Forms::Timer(this->components));
+			this->opt_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -368,6 +370,7 @@ namespace PriceChecker {
 			this->stg_panel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->stg_panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->stg_panel->Controls->Add(this->opt_button);
 			this->stg_panel->Controls->Add(this->test_button);
 			this->stg_panel->Controls->Add(this->close_menu);
 			this->stg_panel->Controls->Add(this->mysql_check_para);
@@ -417,6 +420,13 @@ namespace PriceChecker {
 			// 
 			this->action_visible->Interval = 700;
 			this->action_visible->Tick += gcnew System::EventHandler(this, &Form1::action_visible_Tick);
+			// 
+			// opt_button
+			// 
+			resources->ApplyResources(this->opt_button, L"opt_button");
+			this->opt_button->Name = L"opt_button";
+			this->opt_button->UseVisualStyleBackColor = true;
+			this->opt_button->Click += gcnew System::EventHandler(this, &Form1::opt_button_Click);
 			// 
 			// Form1
 			// 
@@ -522,6 +532,7 @@ private: System::Void action_visible_Tick(System::Object^  sender, System::Event
 				 action_label->Visible = true;
 			 }
 		 }
+private: System::Void opt_button_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
 
