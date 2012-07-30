@@ -6,6 +6,7 @@ bool pass = false;
 using namespace PriceChecker;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
+using namespace System::Globalization;
 using namespace System::IO;
 
 #pragma comment(lib,"User32.lib")
@@ -113,8 +114,8 @@ Void Form1::log_write(String^ str,String^ reason)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-	 "192.168.1.100", "admin", "12345", "ukmserver");
-	 /*  "192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+	 /*"192.168.1.100", "admin", "12345", "ukmserver");*/
+	   "192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -484,8 +485,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -535,8 +536,8 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 Void Form1::action_check(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.11", "pricechecker", "7194622Parti", "action");
-		/*"192.168.1.3", "root", "7194622Parti", "action");*/
+		/*"192.168.1.11", "pricechecker", "7194622Parti", "action");*/
+		"192.168.1.3", "root", "7194622Parti", "action");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -546,7 +547,9 @@ Void Form1::action_check(String^ bar)
 	{
 		conn->Open();
 
-		String^ EntryDate = (gcnew DateTime())->Now.ToShortDateString();
+		CultureInfo^ jaJP = gcnew CultureInfo("ja-JP");
+
+		String^ EntryDate =  (gcnew DateTime())->Today.ToString("d",jaJP)->Replace("/","-");
 
 		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+price_para->Text+" AND start_action <= '"+EntryDate+"' AND stop_action >= '"+EntryDate+"'", conn);
 
