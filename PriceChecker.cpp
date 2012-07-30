@@ -14,13 +14,19 @@ using namespace System::IO;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
-	// Включение визуальных эффектов Windows XP до создания каких-либо элементов управления
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false); 
+	if (System::Diagnostics::Process::GetProcessesByName(Application::ProductName)->Length > 1)
+	{
+		MessageBox::Show("Приложение уже запущено!");
+		return 0;
+	}
+	else
+	{
+		Application::EnableVisualStyles();
+		Application::SetCompatibleTextRenderingDefault(false);
 
-	// Создание главного окна и его запуск
-	Application::Run(gcnew Form1());
-	return 0;
+		Application::Run(gcnew Form1());
+		return 0;
+	}
 }
 
 Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
