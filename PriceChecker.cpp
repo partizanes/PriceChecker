@@ -60,7 +60,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	timer1->Enabled = true;
 
-	log_write("Терминал запущен!","SYSTEM");
+	log_write("Терминал запущен!","SYSTEM","pc");
 
 }
 
@@ -107,11 +107,15 @@ Boolean Form1::ean8_validate(int barcode[])
 	return check;
 }
 
-Void Form1::log_write(String^ str,String^ reason)
+Void Form1::log_write(String^ str,String^ reason,String^ logname)
 {
 	String^ EntryTime = (gcnew DateTime())->Now.ToLongTimeString();
 	String^ EntryDate = (gcnew DateTime())->Today.ToShortDateString();
-	String^ fileName = "PriceChecker.log";
+	if(!Directory::Exists(Environment::CurrentDirectory+"/log/"))
+	{
+		Directory::CreateDirectory((Environment::CurrentDirectory+"/log/"));
+	}
+	String^ fileName = "log/"+logname+".log";
 	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::UTF8);
 	sw->WriteLine("["+EntryDate+"]["+EntryTime+"]["+reason+"]"+" "+str);
 	sw->Close();
@@ -169,7 +173,6 @@ Void Form1::query(String^ bar)
 	{
 		if (reader != nullptr)
 			reader->Close();
-		//msg_clear->Enabled = true;
 	}
 }
 
@@ -292,7 +295,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 				query(bar);
 
-				log_write(bar,"NOTVALID[EAN8]");
+				log_write(bar,"NOTVALID[EAN8]","nv");
 
 				    break;
 			}
@@ -300,6 +303,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			if(!pass)
 			{
 				set_msg_on_timer("Авторизация не пройдена!");
+				log_write("false","PASS","auth");
 				barcode_text_box->Text = "";
 				break;
 			}
@@ -313,6 +317,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				set_msg_on_timer("                                       Настройки");
 				barcode_text_box->Text = "";
 				stg_panel->Visible = true;
+				log_write("true","PASS","auth");
 				break;
 			}
 			else
@@ -347,6 +352,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				{
 					barcode_text_box->Text = "";
 					set_msg_on_timer ("Вес товара не может быть равен нулю!") ;
+					log_write(weight,"weight","pc");
 					return;
 				}
 
@@ -388,7 +394,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				}
 
 				query(bar);
-				log_write(bar,"NOTVALID");
+				log_write(bar,"NOTVALID[EAN13]","nv");
 			}
 			break;
 
