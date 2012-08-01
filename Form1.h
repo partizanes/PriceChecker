@@ -77,6 +77,7 @@ namespace PriceChecker {
 	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape1;
 	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape2;
 	private: System::Windows::Forms::Button^  opt_button;
+	private: System::Windows::Forms::Button^  upload_button;
 
 	private: 
 
@@ -134,6 +135,7 @@ namespace PriceChecker {
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->opt_button = (gcnew System::Windows::Forms::Button());
 			this->test_button = (gcnew System::Windows::Forms::Button());
 			this->close_menu = (gcnew System::Windows::Forms::Button());
 			this->mysql_check_para = (gcnew System::Windows::Forms::Label());
@@ -141,7 +143,7 @@ namespace PriceChecker {
 			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
 			this->dir_exist = (gcnew System::Windows::Forms::Label());
 			this->action_visible = (gcnew System::Windows::Forms::Timer(this->components));
-			this->opt_button = (gcnew System::Windows::Forms::Button());
+			this->upload_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -370,6 +372,7 @@ namespace PriceChecker {
 			this->stg_panel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->stg_panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->stg_panel->Controls->Add(this->upload_button);
 			this->stg_panel->Controls->Add(this->opt_button);
 			this->stg_panel->Controls->Add(this->test_button);
 			this->stg_panel->Controls->Add(this->close_menu);
@@ -380,10 +383,19 @@ namespace PriceChecker {
 			resources->ApplyResources(this->stg_panel, L"stg_panel");
 			this->stg_panel->Name = L"stg_panel";
 			// 
+			// opt_button
+			// 
+			resources->ApplyResources(this->opt_button, L"opt_button");
+			this->opt_button->Name = L"opt_button";
+			this->opt_button->TabStop = false;
+			this->opt_button->UseVisualStyleBackColor = true;
+			this->opt_button->Click += gcnew System::EventHandler(this, &Form1::opt_button_Click);
+			// 
 			// test_button
 			// 
 			resources->ApplyResources(this->test_button, L"test_button");
 			this->test_button->Name = L"test_button";
+			this->test_button->TabStop = false;
 			this->test_button->UseVisualStyleBackColor = true;
 			this->test_button->Click += gcnew System::EventHandler(this, &Form1::test_button_Click);
 			// 
@@ -391,6 +403,7 @@ namespace PriceChecker {
 			// 
 			resources->ApplyResources(this->close_menu, L"close_menu");
 			this->close_menu->Name = L"close_menu";
+			this->close_menu->TabStop = false;
 			this->close_menu->UseVisualStyleBackColor = true;
 			this->close_menu->Click += gcnew System::EventHandler(this, &Form1::close_menu_Click);
 			// 
@@ -421,15 +434,16 @@ namespace PriceChecker {
 			this->action_visible->Interval = 700;
 			this->action_visible->Tick += gcnew System::EventHandler(this, &Form1::action_visible_Tick);
 			// 
-			// opt_button
+			// upload_button
 			// 
-			resources->ApplyResources(this->opt_button, L"opt_button");
-			this->opt_button->Name = L"opt_button";
-			this->opt_button->UseVisualStyleBackColor = true;
-			this->opt_button->Click += gcnew System::EventHandler(this, &Form1::opt_button_Click);
+			resources->ApplyResources(this->upload_button, L"upload_button");
+			this->upload_button->Name = L"upload_button";
+			this->upload_button->TabStop = false;
+			this->upload_button->UseVisualStyleBackColor = true;
+			this->upload_button->Click += gcnew System::EventHandler(this, &Form1::upload_button_Click);
 			// 
 			// Form1
-			// 
+			//
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
@@ -533,6 +547,7 @@ private: System::Void action_visible_Tick(System::Object^  sender, System::Event
 			 }
 		 }
 private: System::Void opt_button_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void upload_button_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
 

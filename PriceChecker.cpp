@@ -4,10 +4,15 @@
 bool pass = false;
 
 using namespace PriceChecker;
+using namespace System::IO;
+using namespace System::Net;
+using namespace System::Data;
+using namespace System::Net::Sockets;
+using namespace System::Globalization;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
-using namespace System::Globalization;
-using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
+
 
 #pragma comment(lib,"User32.lib")
 
@@ -645,5 +650,61 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		if (reader != nullptr)
 			reader->Close();
+	}
+}
+
+Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	String^ file_name;
+	for (int i=1; i< 4; i++)
+	{
+		switch (i)
+		{
+		case 1:
+			file_name = "pc.log";
+			break;
+		case 2:
+			file_name = "nv.log";
+			break;
+		case 3:
+			file_name = "auth.log";
+			break;
+		}
+
+		 if(!File::Exists(Environment::CurrentDirectory+"/log/"+file_name))
+			 return;
+		 try
+		 {
+			 FileStream^ fs = File::OpenRead( Environment::CurrentDirectory+"/log/"+file_name );
+			 array<Byte>^ buffer = gcnew array<Byte>(fs->Length);
+			 int len = safe_cast<int>(fs->Length);
+			 fs->Read(buffer,0,len);
+			 fs->Close();
+
+			 char buf[255];
+
+			 GetPrivateProfileString("SETTINGS", "server_ip","error",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+			 BinaryFormatter ^br = gcnew BinaryFormatter ();
+			 TcpClient ^myclient = gcnew TcpClient (CharToSystemString(buf),7000);
+			 NetworkStream ^myns = myclient->GetStream ();
+			 br->Serialize (myns,file_name);
+
+			 BinaryWriter ^mysw = gcnew BinaryWriter (myns);
+			 mysw->Write(buffer);
+			 mysw->Close();
+
+			 myns->Close();
+			 myclient->Close();
+
+			 Sleep(1000);
+		 }
+		 catch (Exception^ e)
+		 {
+			 Windows::Forms::MessageBox::Show(e->Message);
+		 }
+		 finally
+		 {
+		 }
 	}
 }

@@ -855,6 +855,36 @@
   <metadata name="pass_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>335, 16</value>
   </metadata>
+  <data name="upload_button.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="upload_button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="upload_button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1107, 9</value>
+  </data>
+  <data name="upload_button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 23</value>
+  </data>
+  <data name="upload_button.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="upload_button.Text" xml:space="preserve">
+    <value>Выгрузка</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Name" xml:space="preserve">
+    <value>upload_button</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;upload_button.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="opt_button.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
@@ -862,13 +892,13 @@
     <value>NoControl</value>
   </data>
   <data name="opt_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1107, 18</value>
+    <value>1107, 38</value>
   </data>
   <data name="opt_button.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
   </data>
   <data name="opt_button.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>0</value>
   </data>
   <data name="opt_button.Text" xml:space="preserve">
     <value>Оптимизация</value>
@@ -883,7 +913,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;opt_button.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="test_button.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
@@ -892,13 +922,13 @@
     <value>NoControl</value>
   </data>
   <data name="test_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1107, 47</value>
+    <value>1107, 67</value>
   </data>
   <data name="test_button.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
   </data>
   <data name="test_button.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="test_button.Text" xml:space="preserve">
     <value>Тестировать</value>
@@ -913,7 +943,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;test_button.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="close_menu.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
@@ -922,13 +952,13 @@
     <value>NoControl</value>
   </data>
   <data name="close_menu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1107, 76</value>
+    <value>1107, 96</value>
   </data>
   <data name="close_menu.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
   </data>
   <data name="close_menu.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="close_menu.Text" xml:space="preserve">
     <value>Закрыть</value>
@@ -943,7 +973,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;close_menu.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="mysql_check_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -973,7 +1003,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;mysql_check_para.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="mysql_check.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1006,7 +1036,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;mysql_check.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="dir_exist_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1036,7 +1066,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;dir_exist_para.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="dir_exist.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1066,7 +1096,7 @@
     <value>stg_panel</value>
   </data>
   <data name="&gt;&gt;dir_exist.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="stg_panel.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 224</value>
@@ -1107,8 +1137,8 @@
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABQAAAAQACAYAAAC+k/RDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
-        CwgBwL2l2gAA/3lJREFUeF7M/Ql8VHWa9o07807/p/vp6e6Z6W2ml7en27HHftSxXXrc5nFpGm1pbLVR
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALBwAA
+        CwcBtnMLwAAA/3lJREFUeF7M/Ql8VHWa9o07807/p/vp6e6Z6W2ml7en27HHftSxXXrc5nFpGm1pbLVR
         QNlUQAREQUAWFzYXEBFRFBTZZFMWERAEAcOmEFAIRoJAEAKShCVJk1RSoaqrfv/vdZ+c5FSlKlUB+pnX
         j+cTkjp1lt9yr9d93ee49UOd2zjIuU38zHnM1Xw40r02+E53eGF/d3BuN3diSR93bOkgt3tqN/fntc+4
         ytWj7GfyUVMwybn9rzmX+4J9pmukOpK/p3NSXa+pv+kewfsEz5034i73zvDb3E1XnOd+e/m/u/EPtUq4
