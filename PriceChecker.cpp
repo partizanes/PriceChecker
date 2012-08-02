@@ -61,7 +61,14 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	lineShape2->Visible = false;
 
 	//testing system
-	diag_system();
+	char buf[6];
+
+	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	if(buf == "true")
+	{
+		diag_system();
+	}
 
 	timer1->Enabled = true;
 
@@ -72,7 +79,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 {
 	Random^ rnd=gcnew Random();
-	int i=1+rnd->Next(10);
+	int i=1+rnd->Next(GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")));
 
 	String^ path= String::Format("{0}\\image\\{1}.jpg",Application::StartupPath,i);
 	pictureBox1->ImageLocation = path;
@@ -140,7 +147,7 @@ Void Form1::query(String^ bar)
 	{
 		conn->Open();
 
-		char buf[255];
+		char buf[14];
 		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
 		cmd = gcnew MySqlCommand("SELECT a.name, b.price \n"
@@ -257,8 +264,10 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 			break;
 		case 5:
-			//короткие коды на весовые товары ,цена за килограмм
+			//короткие коды на весовые товары(+прочие) ,цена за килограмм(цена за штуку)
 			//практическое применение:сверка продавцами ценников и цен на кассе с помощью прайсчекера.
+			//вынужденое использование отдельного запроса
+			//тестовая функция
 
 			for (int i=0; i< len; i++)
 			{
@@ -270,9 +279,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				bar += this->barcode_text_box->Text[i];
 			}
 
-			//так как на ценниках используеться короткий штрихкод,при запросе в базу к нему приходиться дописывать "20"
-
-			query("20"+bar);
+			queryfive(bar);
 			    break;
 
 		case 8:
@@ -681,9 +688,15 @@ Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
 			 fs->Read(buffer,0,len);
 			 fs->Close();
 
-			 char buf[255];
+			 char buf[17];
 
 			 GetPrivateProfileString("SETTINGS", "server_ip","error",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+			 if(buf == "error")
+			 {
+				 set_msg_on_timer("Не задан адрес сервера в файле конфигурации!");
+				 return;
+			 }
 
 			 BinaryFormatter ^br = gcnew BinaryFormatter ();
 			 TcpClient ^myclient = gcnew TcpClient (CharToSystemString(buf),7000);
@@ -706,5 +719,60 @@ Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 finally
 		 {
 		 }
+	}
+}
+
+Void Form1::queryfive(String^ bar)
+{
+	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
+		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+
+	conn = gcnew MySqlConnection(connStr);
+
+	MySqlDataReader^ reader = nullptr;
+
+	try
+	{
+		conn->Open();
+
+		char buf[4];
+		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+		cmd = gcnew MySqlCommand("SELECT a.name, b.price \n"
+			"FROM trm_in_var C \n"
+			"LEFT JOIN trm_in_items A ON A.id=C.item \n"
+			"LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
+			"WHERE a.id='"+bar+"' \n"
+			"AND (b.pricelist_id="+CharToSystemString(buf)+")", conn);
+
+		MySqlDataReader^ reader = cmd->ExecuteReader();
+
+		if(reader->Read())
+		{
+			price_para->Visible = true;
+			item_name_textbox->Text = reader->GetString(0);
+			price_para->Text =Convert::ToString(reader->GetInt32(1));
+			barcode_text_box->Text = "";
+			msg_label->Text = "";
+			panel4->Visible = false;
+
+			action_check(bar);
+		}
+		else
+		{
+			barcode_text_box->Text = "";
+			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
+		}
+
+	}
+	catch (Exception^ exc)
+	{
+		set_msg_on_timer("Exception: " + exc->Message);
+	}
+	finally
+	{
+		if (reader != nullptr)
+			reader->Close();
 	}
 }
