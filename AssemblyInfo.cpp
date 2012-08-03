@@ -12,9 +12,9 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyTitleAttribute("PriceChecker")];
 [assembly:AssemblyDescriptionAttribute("")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("mag41")];
+[assembly:AssemblyCompanyAttribute("for VP")];
 [assembly:AssemblyProductAttribute("PriceChecker")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) mag41 2012")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) Partizanes 2012")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 
