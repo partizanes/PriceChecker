@@ -99,7 +99,7 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 		pictureBox1->ImageLocation = path;
 		pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
 
-		log_write("Изображение не найдено"+path,"SYSTEM","pc");
+		log_write("Изображение не найдено: "+path,"SYSTEM","pc");
 		return;
 	}
 
@@ -157,8 +157,8 @@ Void Form1::log_write(String^ str,String^ reason,String^ logname)
 Void Form1::query(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-	 /*"192.168.1.100", "admin", "12345", "ukmserver");*/
-	   "192.168.1.3", "root", "7194622Parti", "ukmserver");
+	 "192.168.1.100", "admin", "12345", "ukmserver");
+	  /* "192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -387,7 +387,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				{
 					barcode_text_box->Text = "";
 					set_msg_on_timer ("Вес товара не может быть равен нулю!") ;
-					log_write(weight,"weight","pc");
+					log_write(weight,"WEIGHT","pc");
 					return;
 				}
 
@@ -531,8 +531,8 @@ Void Form1::diag_system()
 Boolean Form1::mysqlcheck()
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -583,8 +583,8 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 Void Form1::action_check(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.11", "pricechecker", "7194622Parti", "action");*/
-		"192.168.1.3", "root", "7194622Parti", "action");
+		"192.168.1.11", "pricechecker", "7194622Parti", "action");
+		/*"192.168.1.3", "root", "7194622Parti", "action");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -644,8 +644,8 @@ String^ Form1::CharToSystemString(char* ch)
 Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
-		"192.168.1.3", "root", "7194622Parti", "action");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "action");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -772,8 +772,8 @@ Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e
 Void Form1::queryfive(String^ bar)
 {
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		/*"192.168.1.100", "admin", "12345", "ukmserver");*/
-		"192.168.1.3", "root", "7194622Parti", "ukmserver");
+		"192.168.1.100", "admin", "12345", "ukmserver");
+		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
 
 	conn = gcnew MySqlConnection(connStr);
 
