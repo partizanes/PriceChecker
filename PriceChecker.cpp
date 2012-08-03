@@ -70,10 +70,15 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 		diag_system();
 	}
 
+	//timer for random image
 	timer1->Enabled = true;
 
 	log_write("Терминал запущен!","SYSTEM","pc");
 
+	//logo after load
+	String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
+	pictureBox1->ImageLocation = path;
+	pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
 }
 
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -82,6 +87,18 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	int i=1+rnd->Next(GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")));
 
 	String^ path= String::Format("{0}\\image\\{1}.jpg",Application::StartupPath,i);
+
+	if(!File::Exists(path))
+	{
+
+		String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
+		pictureBox1->ImageLocation = path;
+		pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
+
+		log_write("Изображение не найдено"+path,"SYSTEM","pc");
+		return;
+	}
+
 	pictureBox1->ImageLocation = path;
 	pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
 	
@@ -172,6 +189,7 @@ Void Form1::query(String^ bar)
 		}
 		else
 		{
+			log_write("Не найден "+bar,"SYSTEM","pc");
 			barcode_text_box->Text = "";
 			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
 		}
@@ -179,6 +197,7 @@ Void Form1::query(String^ bar)
 	}
 	catch (Exception^ exc)
 	{
+		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -460,7 +479,6 @@ Void Form1::diag_system()
 		}
 		else
 		{
-			//TODO Не закрывать программу при запуске,а генерить логотип.
 			Application::Exit();
 		}
 	}
@@ -523,6 +541,7 @@ Boolean Form1::mysqlcheck()
 	}
 	catch (Exception^ exc)
 	{
+		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 		return false;
 	}
@@ -592,6 +611,7 @@ Void Form1::action_check(String^ bar)
 	}
 	catch (Exception^ exc)
 	{
+		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -651,6 +671,7 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	}
 	catch (Exception^ exc)
 	{
+		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -768,6 +789,7 @@ Void Form1::queryfive(String^ bar)
 	}
 	catch (Exception^ exc)
 	{
+		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
