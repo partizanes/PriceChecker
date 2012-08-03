@@ -78,6 +78,8 @@ namespace PriceChecker {
 	private: Microsoft::VisualBasic::PowerPacks::LineShape^  lineShape2;
 	private: System::Windows::Forms::Button^  opt_button;
 	private: System::Windows::Forms::Button^  upload_button;
+	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
+	private: System::Windows::Forms::Timer^  log_upload_timer;
 
 	private: 
 
@@ -135,6 +137,7 @@ namespace PriceChecker {
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->upload_button = (gcnew System::Windows::Forms::Button());
 			this->opt_button = (gcnew System::Windows::Forms::Button());
 			this->test_button = (gcnew System::Windows::Forms::Button());
 			this->close_menu = (gcnew System::Windows::Forms::Button());
@@ -143,7 +146,8 @@ namespace PriceChecker {
 			this->dir_exist_para = (gcnew System::Windows::Forms::Label());
 			this->dir_exist = (gcnew System::Windows::Forms::Label());
 			this->action_visible = (gcnew System::Windows::Forms::Timer(this->components));
-			this->upload_button = (gcnew System::Windows::Forms::Button());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -383,6 +387,14 @@ namespace PriceChecker {
 			resources->ApplyResources(this->stg_panel, L"stg_panel");
 			this->stg_panel->Name = L"stg_panel";
 			// 
+			// upload_button
+			// 
+			resources->ApplyResources(this->upload_button, L"upload_button");
+			this->upload_button->Name = L"upload_button";
+			this->upload_button->TabStop = false;
+			this->upload_button->UseVisualStyleBackColor = true;
+			this->upload_button->Click += gcnew System::EventHandler(this, &Form1::upload_button_Click);
+			// 
 			// opt_button
 			// 
 			resources->ApplyResources(this->opt_button, L"opt_button");
@@ -434,16 +446,18 @@ namespace PriceChecker {
 			this->action_visible->Interval = 700;
 			this->action_visible->Tick += gcnew System::EventHandler(this, &Form1::action_visible_Tick);
 			// 
-			// upload_button
+			// backgroundWorker1
 			// 
-			resources->ApplyResources(this->upload_button, L"upload_button");
-			this->upload_button->Name = L"upload_button";
-			this->upload_button->TabStop = false;
-			this->upload_button->UseVisualStyleBackColor = true;
-			this->upload_button->Click += gcnew System::EventHandler(this, &Form1::upload_button_Click);
+			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::backgroundWorker1_DoWork);
+			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &Form1::backgroundWorker1_RunWorkerCompleted);
+			// 
+			// log_upload_timer
+			// 
+			this->log_upload_timer->Interval = 60000;
+			this->log_upload_timer->Tick += gcnew System::EventHandler(this, &Form1::log_upload_timer_Tick);
 			// 
 			// Form1
-			//
+			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
@@ -549,6 +563,9 @@ private: System::Void action_visible_Tick(System::Object^  sender, System::Event
 		 }
 private: System::Void opt_button_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void upload_button_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
+private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e);
+private: System::Void log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e);
 };
 }
 

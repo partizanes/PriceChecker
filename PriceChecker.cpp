@@ -79,6 +79,10 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
 	pictureBox1->ImageLocation = path;
 	pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
+
+	//set upload_log_interval from config default 3hours
+	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
+	log_upload_timer->Enabled = true;
 }
 
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -683,7 +687,15 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
 {
+	upload_button->Enabled = false;
+	backgroundWorker1->RunWorkerAsync();
+}
+
+Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e)
+{
 	String^ file_name;
+	Boolean okey;
+
 	for (int i=1; i< 4; i++)
 	{
 		switch (i)
@@ -733,14 +745,28 @@ Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
 
 			 Sleep(1000);
 		 }
-		 catch (Exception^ e)
+		 catch (Exception^ exc)
 		 {
-			 Windows::Forms::MessageBox::Show(e->Message);
+			 okey = false;
+			 log_write(exc->Message,"EXCEPTION","pc");
 		 }
 		 finally
 		 {
+			 if(okey)
+				 log_write("Логи выгружены успешно!","SYSTEM","pc");
 		 }
 	}
+}
+
+Void Form1::backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e)
+{
+	upload_button->Enabled = true;
+}
+
+Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e)
+{
+	log_write("Автоматическая выгрузка логов","SYSTEM","pc");
+	backgroundWorker1->RunWorkerAsync();
 }
 
 Void Form1::queryfive(String^ bar)
@@ -797,4 +823,4 @@ Void Form1::queryfive(String^ bar)
 		if (reader != nullptr)
 			reader->Close();
 	}
-}
+		 }
