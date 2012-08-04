@@ -711,8 +711,8 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 			break;
 		}
 
-		 if(!File::Exists(Environment::CurrentDirectory+"/log/"+file_name))
-			 return;
+// 		 if(!File::Exists(Environment::CurrentDirectory+"/log/"+file_name))
+// 			 break;
 		 try
 		 {
 			 FileStream^ fs = File::OpenRead( Environment::CurrentDirectory+"/log/"+file_name );
