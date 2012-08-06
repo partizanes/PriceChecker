@@ -271,7 +271,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;price_textbox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="price_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,73 +301,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;price_para.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="balance_label.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="balance_label.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 15.75pt, style=Bold, Italic</value>
-  </data>
-  <data name="balance_label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="balance_label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>735, 30</value>
-  </data>
-  <data name="balance_label.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 25</value>
-  </data>
-  <data name="balance_label.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="balance_label.Text" xml:space="preserve">
-    <value>Остаток:</value>
-  </data>
-  <data name="&gt;&gt;balance_label.Name" xml:space="preserve">
-    <value>balance_label</value>
-  </data>
-  <data name="&gt;&gt;balance_label.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;balance_label.Parent" xml:space="preserve">
-    <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;balance_label.ZOrder" xml:space="preserve">
     <value>7</value>
-  </data>
-  <data name="balance_para.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="balance_para.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 24pt, style=Bold</value>
-  </data>
-  <data name="balance_para.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="balance_para.Location" type="System.Drawing.Point, System.Drawing">
-    <value>849, 19</value>
-  </data>
-  <data name="balance_para.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 39</value>
-  </data>
-  <data name="balance_para.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="balance_para.Text" xml:space="preserve">
-    <value>Balance</value>
-  </data>
-  <data name="&gt;&gt;balance_para.Name" xml:space="preserve">
-    <value>balance_para</value>
-  </data>
-  <data name="&gt;&gt;balance_para.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;balance_para.Parent" xml:space="preserve">
-    <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;balance_para.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="action_label.Font" type="System.Drawing.Font, System.Drawing">
     <value>BirchCTT, 17.9999981pt, style=Bold</value>
@@ -376,10 +310,10 @@
     <value>NoControl</value>
   </data>
   <data name="action_label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>735, 22</value>
+    <value>755, 24</value>
   </data>
   <data name="action_label.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 42</value>
+    <value>251, 42</value>
   </data>
   <data name="action_label.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -430,7 +364,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_label.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="old_price_para.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -463,7 +397,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;old_price_para.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="pictureBox1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -772,7 +706,7 @@
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;shapeContainer1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 107</value>
@@ -1143,8 +1077,8 @@
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABQAAAAQACAYAAAC+k/RDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALBAAA
-        CwQBG8oqrQAA/3lJREFUeF7M/Ql8VHWa9o07807/p/vp6e6Z6W2ml7en27HHftSxXXrc5nFpGm1pbLVR
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAwAA
+        CwMBSY6M0gAA/3lJREFUeF7M/Ql8VHWa9o07807/p/vp6e6Z6W2ml7en27HHftSxXXrc5nFpGm1pbLVR
         QNlUQAREQUAWFzYXEBFRFBTZZFMWERAEAcOmEFAIRoJAEAKShCVJk1RSoaqrfv/vdZ+c5FSlKlUB+pnX
         j+cTkjp1lt9yr9d93ee49UOd2zjIuU38zHnM1Xw40r02+E53eGF/d3BuN3diSR93bOkgt3tqN/fntc+4
         ytWj7GfyUVMwybn9rzmX+4J9pmukOpK/p3NSXa+pv+kewfsEz5034i73zvDb3E1XnOd+e/m/u/EPtUq4

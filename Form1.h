@@ -37,12 +37,12 @@ namespace PriceChecker {
 
 	
     private: System::Windows::Forms::Label^  price_para;
-    private: System::Windows::Forms::Label^  balance_para;
+
     private: System::Windows::Forms::Label^  old_price_para;
 
     private: System::Windows::Forms::Label^  barcode_label;
     private: System::Windows::Forms::Label^  action_label;
-    private: System::Windows::Forms::Label^  balance_label;
+
     private: System::Windows::Forms::Label^  old_price_label;
     private: System::Windows::Forms::Label^  name_label;
 
@@ -113,8 +113,6 @@ namespace PriceChecker {
 			this->name_label = (gcnew System::Windows::Forms::Label());
 			this->price_textbox = (gcnew System::Windows::Forms::Label());
 			this->price_para = (gcnew System::Windows::Forms::Label());
-			this->balance_label = (gcnew System::Windows::Forms::Label());
-			this->balance_para = (gcnew System::Windows::Forms::Label());
 			this->action_label = (gcnew System::Windows::Forms::Label());
 			this->old_price_label = (gcnew System::Windows::Forms::Label());
 			this->old_price_para = (gcnew System::Windows::Forms::Label());
@@ -206,18 +204,6 @@ namespace PriceChecker {
 			this->price_para->ForeColor = System::Drawing::Color::Red;
 			this->price_para->Name = L"price_para";
 			// 
-			// balance_label
-			// 
-			resources->ApplyResources(this->balance_label, L"balance_label");
-			this->balance_label->ForeColor = System::Drawing::Color::DarkRed;
-			this->balance_label->Name = L"balance_label";
-			// 
-			// balance_para
-			// 
-			resources->ApplyResources(this->balance_para, L"balance_para");
-			this->balance_para->ForeColor = System::Drawing::Color::DarkRed;
-			this->balance_para->Name = L"balance_para";
-			// 
 			// action_label
 			// 
 			resources->ApplyResources(this->action_label, L"action_label");
@@ -290,9 +276,7 @@ namespace PriceChecker {
 			this->panel3->Controls->Add(this->total_label);
 			this->panel3->Controls->Add(this->weight_para);
 			this->panel3->Controls->Add(this->weight_label);
-			this->panel3->Controls->Add(this->balance_para);
 			this->panel3->Controls->Add(this->old_price_label);
-			this->panel3->Controls->Add(this->balance_label);
 			this->panel3->Controls->Add(this->price_textbox);
 			this->panel3->Controls->Add(this->price_para);
 			this->panel3->Controls->Add(this->shapeContainer1);

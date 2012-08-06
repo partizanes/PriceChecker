@@ -39,7 +39,6 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	//label
 	old_price_label->Visible = false;
 	action_label->Visible = false;
-	balance_label->Visible = false;
 	msg_label->Visible = false;
 	panel4->Visible = false;
 	weight_label->Visible = false;
@@ -47,7 +46,6 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	//para
 	old_price_para->Visible = false;
-	balance_para->Visible = false;
 	price_para->Visible = false;
 	weight_para->Visible = false;
 	total_para->Visible = false;
@@ -156,9 +154,12 @@ Void Form1::log_write(String^ str,String^ reason,String^ logname)
 
 Void Form1::query(String^ bar)
 {
+	char buf[50];
+
+	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-	 "192.168.1.100", "admin", "12345", "ukmserver");
-	  /* "192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+        CharToSystemString(buf), "admin", "12345", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -530,9 +531,12 @@ Void Form1::diag_system()
 
 Boolean Form1::mysqlcheck()
 {
+	char buf[50];
+
+	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		CharToSystemString(buf), "admin", "12345", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -582,9 +586,12 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::action_check(String^ bar)
 {
+	char buf[50];
+
+	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.11", "pricechecker", "7194622Parti", "action");
-		/*"192.168.1.3", "root", "7194622Parti", "action");*/
+		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -643,9 +650,12 @@ String^ Form1::CharToSystemString(char* ch)
 
 Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 {
+	char buf[50];
+
+	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "action");*/
+		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
 
 	conn = gcnew MySqlConnection(connStr);
 
@@ -711,8 +721,6 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 			break;
 		}
 
-// 		 if(!File::Exists(Environment::CurrentDirectory+"/log/"+file_name))
-// 			 break;
 		 try
 		 {
 			 FileStream^ fs = File::OpenRead( Environment::CurrentDirectory+"/log/"+file_name );
@@ -723,7 +731,7 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 
 			 char buf[17];
 
-			 GetPrivateProfileString("SETTINGS", "server_ip","error",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+			 GetPrivateProfileString("SETTINGS", "upload_server","error",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
 			 if(buf == "error")
 			 {
@@ -771,9 +779,12 @@ Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e
 
 Void Form1::queryfive(String^ bar)
 {
+	char buf[50];
+
+	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
 	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		"192.168.1.100", "admin", "12345", "ukmserver");
-		/*"192.168.1.3", "root", "7194622Parti", "ukmserver");*/
+		CharToSystemString(buf), "admin", "12345", "ukmserver");
 
 	conn = gcnew MySqlConnection(connStr);
 
