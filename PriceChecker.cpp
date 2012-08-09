@@ -395,6 +395,13 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 				query(bar);
 
+				if(price_para->Text == "Price")
+				{
+					set_msg_on_timer ("Товар не найден!!!") ;
+					log_write("Ошибка!Товар не прогружен!","NOTFOUND","ERROR");
+					return;
+				}
+
 				float w = (float(Convert::ToInt32(weight))/1000);
 
 				weight_para->Text = Convert::ToString(w);
