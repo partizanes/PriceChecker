@@ -86,6 +86,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
 {
+	//THIS TEST FUNCTION FOR SUPPORT UPC BARCODE
 	if(barcode_text_box->Text->Length == 12)
 	{
 			if((barcode_text_box->Text[0]- '0') == 0)
@@ -414,6 +415,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 				query(bar);
 
+				//MB THIS NEED SYSTEM MESSAGE TO ADMINISTRATOR
 				if(price_para->Text == "Price")
 				{
 					set_msg_on_timer ("Товар не найден!!!") ;
