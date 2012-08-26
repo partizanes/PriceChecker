@@ -99,7 +99,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 				}
 
 				query("0"+bar);
-				log_write("0"+bar,"DEBUG","ERROR");
+				log_write("0"+bar,"DEBUG","pc");
 			}
 	}
 }
@@ -422,7 +422,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				if(price_para->Text == "Price")
 				{
 					set_msg_on_timer ("Товар не найден!!!") ;
-					log_write("Ошибка!Товар не прогружен!","NOTFOUND","ERROR");
+					log_write("Ошибка!Товар не прогружен!","NOTFOUND","pc");
 					return;
 				}
 
@@ -777,6 +777,7 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 			 {
 				 set_msg_on_timer("Не задан адрес сервера в файле конфигурации!");
 				 return;
+				 //TODO windows from write ip adress
 			 }
 
 			 BinaryFormatter ^br = gcnew BinaryFormatter ();
