@@ -230,6 +230,9 @@ Void Form1::query(String^ bar)
 	{
 		if (reader != nullptr)
 			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 }
 
@@ -585,6 +588,9 @@ Boolean Form1::mysqlcheck()
 	{
 		if (reader != nullptr)
 			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 
 }
@@ -657,6 +663,9 @@ Void Form1::action_check(String^ bar)
 	{
 		if (reader != nullptr)
 			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 }
 
@@ -720,6 +729,9 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		if (reader != nullptr)
 			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 }
 
@@ -861,5 +873,8 @@ Void Form1::queryfive(String^ bar)
 	{
 		if (reader != nullptr)
 			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 		 }
