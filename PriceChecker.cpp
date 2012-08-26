@@ -69,6 +69,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	}
 
 	//timer for random image
+	timer1->Interval = (GetPrivateProfileInt("SETTINGS", "random_img_interval",5,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*1000;
 	timer1->Enabled = true;
 
 	log_write("Терминал запущен!","SYSTEM","pc");
@@ -81,6 +82,25 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	//set upload_log_interval from config default 3hours
 	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	log_upload_timer->Enabled = true;
+}
+
+Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
+{
+	if(barcode_text_box->Text->Length == 12)
+	{
+			if((barcode_text_box->Text[0]- '0') == 0)
+			{
+				String^ bar;
+
+				for (int i=0; i< barcode_text_box->Text->Length; i++)
+				{
+					bar += this->barcode_text_box->Text[i];
+				}
+
+				query("0"+bar);
+				log_write("0"+bar,"DEBUG","ERROR");
+			}
+	}
 }
 
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -222,7 +242,6 @@ Void Form1::set_msg_on_timer(String^ text)
 
 Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
 {
-
 	if (e->KeyCode == Keys::Enter)
 	{
 		int len = barcode_text_box->TextLength ;

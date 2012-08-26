@@ -162,6 +162,7 @@ namespace PriceChecker {
 			resources->ApplyResources(this->barcode_text_box, L"barcode_text_box");
 			this->barcode_text_box->Name = L"barcode_text_box";
 			this->barcode_text_box->TabStop = false;
+			this->barcode_text_box->TextChanged += gcnew System::EventHandler(this, &Form1::barcode_text_box_TextChanged);
 			this->barcode_text_box->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::barcode_text_box_KeyDown);
 			this->barcode_text_box->Leave += gcnew System::EventHandler(this, &Form1::barcode_text_box_Leave);
 			// 
@@ -550,6 +551,7 @@ private: System::Void upload_button_Click(System::Object^  sender, System::Event
 private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
 private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e);
 private: System::Void log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e);
 };
 }
 
