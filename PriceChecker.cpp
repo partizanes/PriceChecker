@@ -2,6 +2,7 @@
 #include <windows.h>
 
 bool pass = false;
+int last_image_num = 0;
 
 using namespace PriceChecker;
 using namespace System::IO;
@@ -82,6 +83,13 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	//set upload_log_interval from config default 3hours
 	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	log_upload_timer->Enabled = true;
+
+	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
+
+	if (directoryInfo->Exists)
+		last_image_num += directoryInfo->GetFiles("*.jpg", SearchOption::TopDirectoryOnly)->Length;
+	else
+		last_image_num = GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 }
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
@@ -107,7 +115,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 {
 	Random^ rnd=gcnew Random();
-	int i=1+rnd->Next(GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")));
+	int i=1+rnd->Next(last_image_num);
 
 	String^ path= String::Format("{0}\\image\\{1}.jpg",Application::StartupPath,i);
 
