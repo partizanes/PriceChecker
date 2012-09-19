@@ -80,6 +80,7 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Button^  upload_button;
 	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
 	private: System::Windows::Forms::Timer^  log_upload_timer;
+	private: System::Windows::Forms::Timer^  image_on;
 
 	private: 
 
@@ -146,6 +147,7 @@ namespace PriceChecker {
 			this->action_visible = (gcnew System::Windows::Forms::Timer(this->components));
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -441,6 +443,11 @@ namespace PriceChecker {
 			this->log_upload_timer->Interval = 60000;
 			this->log_upload_timer->Tick += gcnew System::EventHandler(this, &Form1::log_upload_timer_Tick);
 			// 
+			// image_on
+			// 
+			this->image_on->Interval = 7000;
+			this->image_on->Tick += gcnew System::EventHandler(this, &Form1::image_on_Tick);
+			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
@@ -484,6 +491,7 @@ private: MySqlConnection^	conn;
 private: MySqlCommand^	cmd;
 	
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);
+private: System::Void picture_off();
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e);
 
 private: System::Void item_name_textbox_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -552,6 +560,7 @@ private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::
 private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e);
 private: System::Void log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e);
+private: System::Void image_on_Tick(System::Object^  sender, System::EventArgs^  e);
 };
 }
 

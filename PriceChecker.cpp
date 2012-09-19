@@ -117,11 +117,17 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	Random^ rnd=gcnew Random();
 	int i=1+rnd->Next(last_image_num);
 
-	String^ path= String::Format("{0}\\image\\{1}.jpg",Application::StartupPath,i);
+	DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
+
+	array<FileInfo^>^fiArr = di->GetFiles("*.jpg");
+
+	while(fiArr[i]->Name == "logo.jpg")
+		i=1+rnd->Next(last_image_num);
+
+	String^ path= String::Format("{0}\\image\\{1}",Application::StartupPath,(fiArr[i]->Name));
 
 	if(!File::Exists(path))
 	{
-
 		String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
 		pictureBox1->ImageLocation = path;
 		pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
@@ -218,6 +224,8 @@ Void Form1::query(String^ bar)
 			barcode_text_box->Text = "";
 			msg_label->Text = "";
 			panel4->Visible = false;
+
+			picture_off();
 
 			action_check(bar);
 		}
@@ -567,7 +575,6 @@ Void Form1::diag_system()
 	}
 }
 
-
 Boolean Form1::mysqlcheck()
 {
 	char buf[50];
@@ -864,6 +871,8 @@ Void Form1::queryfive(String^ bar)
 			msg_label->Text = "";
 			panel4->Visible = false;
 
+			picture_off();
+
 			action_check(bar);
 		}
 		else
@@ -887,3 +896,15 @@ Void Form1::queryfive(String^ bar)
 			conn->Close();
 	}
 		 }
+
+Void Form1::picture_off()
+{
+	pictureBox1->Visible = false;
+	image_on->Enabled = true;
+}
+
+Void Form1::image_on_Tick(System::Object^  sender, System::EventArgs^  e)
+{
+	pictureBox1->Visible = true;
+	image_on->Enabled = false;
+}
