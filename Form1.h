@@ -511,7 +511,7 @@ private: System::Void barcode_text_box_Leave(System::Object^  sender, System::Ev
 		 }
 private: System::Boolean ean13_validate(int barcode[]);
 private: System::Boolean ean8_validate(int barcode[]);
-private: System::Void log_write(String^ str,String^ reason,String^ logname);
+private:  System::Void log_write(String^ str,String^ reason,String^ logname);
 private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^  e) {
 			 msg_clear->Enabled = false;
 			 msg_label->Text = "";

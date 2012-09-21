@@ -30,8 +30,16 @@ int main(array<System::String ^> ^args)
 		Application::EnableVisualStyles();
 		Application::SetCompatibleTextRenderingDefault(false);
 
-		Application::Run(gcnew Form1());
-		return 0;
+		try
+		{
+			Application::Run(gcnew Form1());
+			return 0;
+		}
+		catch (Exception^ exc)
+		{
+			//Form1::log_write(exc->Message,"EXCEPTION","pc");
+		}
+
 	}
 }
 
@@ -50,6 +58,9 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	price_para->Visible = false;
 	weight_para->Visible = false;
 	total_para->Visible = false;
+
+	//mb this not need
+	pictureBox1->BackColor = Color::Transparent;
 
 	//full screen size after form load
 	Form1::Size = System::Drawing::Size(GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
@@ -114,31 +125,39 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 
 Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 {
-	Random^ rnd=gcnew Random();
-	int i=1+rnd->Next(last_image_num);
-
-	DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
-
-	array<FileInfo^>^fiArr = di->GetFiles("*.jpg");
-
-	while(fiArr[i]->Name == "logo.jpg")
-		i=1+rnd->Next(last_image_num);
-
-	String^ path= String::Format("{0}\\image\\{1}",Application::StartupPath,(fiArr[i]->Name));
-
-	if(!File::Exists(path))
+	try
 	{
-		String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
+		Random^ rnd=gcnew Random();
+		int i=1+rnd->Next(last_image_num);
+
+		DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
+
+		array<FileInfo^>^fiArr = di->GetFiles("*.jpg");
+
+		while(fiArr[i]->Name == "logo.jpg")
+			i=1+rnd->Next(last_image_num);
+
+		String^ path= String::Format("{0}\\image\\{1}",Application::StartupPath,(fiArr[i]->Name));
+
+		if(!File::Exists(path))
+		{
+			String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
+			pictureBox1->ImageLocation = path;
+			pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
+
+			log_write("Изображение не найдено: "+path,"SYSTEM","pc");
+			return;
+		}
+
 		pictureBox1->ImageLocation = path;
 		pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
-
-		log_write("Изображение не найдено: "+path,"SYSTEM","pc");
-		return;
 	}
 
-	pictureBox1->ImageLocation = path;
-	pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
-	
+	catch (Exception^ exc)
+	{
+		log_write(exc->Message,"EXCEPTION","pc");
+		set_msg_on_timer("Exception: " + exc->Message);
+	}
 }
 
 Boolean Form1::ean13_validate(int barcode[])
@@ -779,7 +798,7 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 		 try
 		 {
 			 FileStream^ fs = File::OpenRead( Environment::CurrentDirectory+"/log/"+file_name );
-			 array<Byte>^ buffer = gcnew array<Byte>(fs->Length);
+			 array<Byte>^ buffer = gcnew array<Byte>((int)fs->Length);
 			 int len = safe_cast<int>(fs->Length);
 			 fs->Read(buffer,0,len);
 			 fs->Close();
@@ -895,7 +914,7 @@ Void Form1::queryfive(String^ bar)
 		if (conn->State == ConnectionState::Open)
 			conn->Close();
 	}
-		 }
+}
 
 Void Form1::picture_off()
 {
