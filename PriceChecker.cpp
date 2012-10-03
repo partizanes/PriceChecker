@@ -101,6 +101,9 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 		last_image_num += directoryInfo->GetFiles("*.jpg", SearchOption::TopDirectoryOnly)->Length;
 	else
 		last_image_num = GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	//test this
+	mysqlcheck();
 }
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
