@@ -131,7 +131,7 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	try
 	{
 		Random^ rnd=gcnew Random();
-		int i=1+rnd->Next(last_image_num);
+		int i=0+rnd->Next(last_image_num-1);
 
 		DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
 
@@ -263,6 +263,12 @@ Void Form1::query(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
+
+		if (reader != nullptr)
+			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 	finally
 	{
@@ -617,6 +623,12 @@ Boolean Form1::mysqlcheck()
 	}
 	catch (Exception^ exc)
 	{
+		if (reader != nullptr)
+			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
+
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 		return false;
@@ -695,6 +707,12 @@ Void Form1::action_check(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
+
+		if (reader != nullptr)
+			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 	finally
 	{
@@ -761,6 +779,12 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
+
+		if (reader != nullptr)
+			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 	finally
 	{
@@ -908,6 +932,12 @@ Void Form1::queryfive(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
+
+		if (reader != nullptr)
+			reader->Close();
+
+		if (conn->State == ConnectionState::Open)
+			conn->Close();
 	}
 	finally
 	{
