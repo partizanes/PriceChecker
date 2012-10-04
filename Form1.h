@@ -489,6 +489,7 @@ namespace PriceChecker {
 
 private: MySqlConnection^	conn;
 private: MySqlCommand^	cmd;
+public: String^ connStr;
 	
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);
 private: System::Void picture_off();

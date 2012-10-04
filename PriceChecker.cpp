@@ -39,7 +39,6 @@ int main(array<System::String ^> ^args)
 		{
 			//Form1::log_write(exc->Message,"EXCEPTION","pc");
 		}
-
 	}
 }
 
@@ -102,8 +101,12 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	else
 		last_image_num = GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
+	conn = gcnew MySqlConnection(connStr);
+
 	//test this
 	mysqlcheck();
+
+
 }
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
@@ -215,10 +218,8 @@ Void Form1::query(String^ bar)
 
 	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
         CharToSystemString(buf), "admin", "12345", "ukmserver");
-
-	conn = gcnew MySqlConnection(connStr);
 
 	MySqlDataReader^ reader = nullptr;
 
@@ -263,12 +264,6 @@ Void Form1::query(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
-
-		if (reader != nullptr)
-			reader->Close();
-
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
 	}
 	finally
 	{
@@ -609,10 +604,8 @@ Boolean Form1::mysqlcheck()
 
 	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
 		CharToSystemString(buf), "admin", "12345", "ukmserver");
-
-	conn = gcnew MySqlConnection(connStr);
 
 	MySqlDataReader^ reader = nullptr;
 
@@ -623,12 +616,6 @@ Boolean Form1::mysqlcheck()
 	}
 	catch (Exception^ exc)
 	{
-		if (reader != nullptr)
-			reader->Close();
-
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
-
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 		return false;
@@ -673,10 +660,8 @@ Void Form1::action_check(String^ bar)
 
 	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
 		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
-
-	conn = gcnew MySqlConnection(connStr);
 
 	MySqlDataReader^ reader = nullptr;
 
@@ -707,12 +692,6 @@ Void Form1::action_check(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
-
-		if (reader != nullptr)
-			reader->Close();
-
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
 	}
 	finally
 	{
@@ -746,10 +725,8 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 
 	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
 		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
-
-	conn = gcnew MySqlConnection(connStr);
 
 	MySqlDataReader^ reader = nullptr;
 
@@ -779,12 +756,6 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
-
-		if (reader != nullptr)
-			reader->Close();
-
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
 	}
 	finally
 	{
@@ -885,10 +856,8 @@ Void Form1::queryfive(String^ bar)
 
 	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	String^ connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
 		CharToSystemString(buf), "admin", "12345", "ukmserver");
-
-	conn = gcnew MySqlConnection(connStr);
 
 	MySqlDataReader^ reader = nullptr;
 
@@ -932,12 +901,6 @@ Void Form1::queryfive(String^ bar)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
-
-		if (reader != nullptr)
-			reader->Close();
-
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
 	}
 	finally
 	{
