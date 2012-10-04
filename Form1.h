@@ -487,8 +487,9 @@ namespace PriceChecker {
 		}
 #pragma endregion
 
-private: MySqlConnection^	conn;
 private: MySqlCommand^	cmd;
+public: MySqlConnection^ server1Conn;
+public: MySqlConnection^ server2Conn;
 public: String^ connStr;
 	
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);

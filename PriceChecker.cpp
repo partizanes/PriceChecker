@@ -70,14 +70,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	lineShape2->Visible = false;
 
 	//testing system
-	char buf[6];
-
-	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	if(buf == "true")
-	{
-		diag_system();
-	}
+	char buf[50];
 
 	//timer for random image
 	timer1->Interval = (GetPrivateProfileInt("SETTINGS", "random_img_interval",5,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*1000;
@@ -101,10 +94,27 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	else
 		last_image_num = GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	conn = gcnew MySqlConnection(connStr);
-
 	//test this
-	mysqlcheck();
+	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		CharToSystemString(buf), "admin", "12345", "ukmserver");
+
+	server1Conn = gcnew MySqlConnection(connStr);
+
+	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
+		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
+
+	server2Conn = gcnew MySqlConnection(connStr);
+
+	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	if(buf == "true")
+	{
+		diag_system();
+	}
 
 
 }
@@ -214,18 +224,11 @@ Void Form1::log_write(String^ str,String^ reason,String^ logname)
 
 Void Form1::query(String^ bar)
 {
-	char buf[50];
-
-	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-        CharToSystemString(buf), "admin", "12345", "ukmserver");
-
 	MySqlDataReader^ reader = nullptr;
 
 	try
 	{
-		conn->Open();
+		server1Conn->Open();
 
 		char buf[14];
 		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
@@ -235,7 +238,7 @@ Void Form1::query(String^ bar)
 			 "LEFT JOIN trm_in_items A ON A.id=C.item \n"
 			 "LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
 			 "WHERE C.id='"+bar+"' \n"
-			 "AND (b.pricelist_id="+CharToSystemString(buf)+")", conn);
+			 "AND (b.pricelist_id="+CharToSystemString(buf)+")", server1Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -270,8 +273,8 @@ Void Form1::query(String^ bar)
 		if (reader != nullptr)
 			reader->Close();
 
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
+		if (server1Conn->State == ConnectionState::Open)
+			server1Conn->Close();
 	}
 }
 
@@ -600,18 +603,11 @@ Void Form1::diag_system()
 
 Boolean Form1::mysqlcheck()
 {
-	char buf[50];
-
-	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		CharToSystemString(buf), "admin", "12345", "ukmserver");
-
 	MySqlDataReader^ reader = nullptr;
 
 	try
 	{
-		conn->Open();
+		server1Conn->Open();
 		return true;
 	}
 	catch (Exception^ exc)
@@ -625,8 +621,8 @@ Boolean Form1::mysqlcheck()
 		if (reader != nullptr)
 			reader->Close();
 
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
+		if (server1Conn->State == ConnectionState::Open)
+			server1Conn->Close();
 	}
 
 }
@@ -656,24 +652,17 @@ Void Form1::test_button_Click(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::action_check(String^ bar)
 {
-	char buf[50];
-
-	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
-
 	MySqlDataReader^ reader = nullptr;
 
 	try
 	{
-		conn->Open();
+		server2Conn->Open();
 
 		CultureInfo^ jaJP = gcnew CultureInfo("ja-JP");
 
 		String^ EntryDate =  (gcnew DateTime())->Today.ToString("d",jaJP)->Replace("/","-");
 
-		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+price_para->Text+" AND start_action <= '"+EntryDate+"' AND stop_action >= '"+EntryDate+"'", conn);
+		cmd = gcnew MySqlCommand("SELECT price_old,price_new FROM action_price WHERE barcode = "+bar+" AND price_new = "+price_para->Text+" AND start_action <= '"+EntryDate+"' AND stop_action >= '"+EntryDate+"'", server2Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -698,8 +687,8 @@ Void Form1::action_check(String^ bar)
 		if (reader != nullptr)
 			reader->Close();
 
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
+		if (server2Conn->State == ConnectionState::Open)
+			server2Conn->Close();
 	}
 }
 
@@ -721,20 +710,13 @@ String^ Form1::CharToSystemString(char* ch)
 
 Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	char buf[50];
-
-	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
-
 	MySqlDataReader^ reader = nullptr;
 
 	try
 	{
-		conn->Open();
+		server2Conn->Open();
 
-		cmd = gcnew MySqlCommand("OPTIMIZE TABLE action_price", conn);
+		cmd = gcnew MySqlCommand("OPTIMIZE TABLE action_price", server2Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -762,8 +744,8 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 		if (reader != nullptr)
 			reader->Close();
 
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
+		if (server2Conn->State == ConnectionState::Open)
+			server2Conn->Close();
 	}
 }
 
@@ -852,18 +834,11 @@ Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e
 
 Void Form1::queryfive(String^ bar)
 {
-	char buf[50];
-
-	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		CharToSystemString(buf), "admin", "12345", "ukmserver");
-
 	MySqlDataReader^ reader = nullptr;
 
 	try
 	{
-		conn->Open();
+		server1Conn->Open();
 
 		char buf[4];
 		GetPrivateProfileString("SETTINGS", "id_pricelist","1",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
@@ -873,7 +848,7 @@ Void Form1::queryfive(String^ bar)
 			"LEFT JOIN trm_in_items A ON A.id=C.item \n"
 			"LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
 			"WHERE a.id='"+bar+"' \n"
-			"AND (b.pricelist_id="+CharToSystemString(buf)+")", conn);
+			"AND (b.pricelist_id="+CharToSystemString(buf)+")", server1Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -907,8 +882,8 @@ Void Form1::queryfive(String^ bar)
 		if (reader != nullptr)
 			reader->Close();
 
-		if (conn->State == ConnectionState::Open)
-			conn->Close();
+		if (server1Conn->State == ConnectionState::Open)
+			server1Conn->Close();
 	}
 }
 
