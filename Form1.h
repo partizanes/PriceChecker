@@ -471,6 +471,7 @@ namespace PriceChecker {
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Form1::Form1_FormClosed);
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
+			this->Shown += gcnew System::EventHandler(this, &Form1::Form1_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
@@ -563,6 +564,9 @@ private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  send
 private: System::Void log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e);
 private: System::Void image_on_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void Form1_Shown(System::Object^  sender, System::EventArgs^  e) {
+			 this->Focus();
+		 }
 };
 }
 

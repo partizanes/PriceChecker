@@ -44,6 +44,8 @@ int main(array<System::String ^> ^args)
 
 Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 {
+	barcode_text_box->Focus();
+
 	//label
 	old_price_label->Visible = false;
 	action_label->Visible = false;
@@ -94,7 +96,6 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	else
 		last_image_num = GetPrivateProfileInt("SETTINGS", "last_image_num",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	//test this
 	GetPrivateProfileString("SETTINGS", "srv_global","192.168.1.100",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
 	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
@@ -144,14 +145,14 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	try
 	{
 		Random^ rnd=gcnew Random();
-		int i=0+rnd->Next(last_image_num-1);
+		int i=rnd->Next(last_image_num-1);
 
 		DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
 
 		array<FileInfo^>^fiArr = di->GetFiles("*.jpg");
 
 		while(fiArr[i]->Name == "logo.jpg")
-			i=1+rnd->Next(last_image_num);
+			i=rnd->Next(last_image_num);
 
 		String^ path= String::Format("{0}\\image\\{1}",Application::StartupPath,(fiArr[i]->Name));
 
@@ -270,6 +271,8 @@ Void Form1::query(String^ bar)
 	}
 	finally
 	{
+		delete cmd;
+
 		if (reader != nullptr)
 			reader->Close();
 
@@ -684,6 +687,8 @@ Void Form1::action_check(String^ bar)
 	}
 	finally
 	{
+		delete cmd;
+
 		if (reader != nullptr)
 			reader->Close();
 
@@ -741,6 +746,8 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	}
 	finally
 	{
+		delete cmd;
+
 		if (reader != nullptr)
 			reader->Close();
 
@@ -879,6 +886,8 @@ Void Form1::queryfive(String^ bar)
 	}
 	finally
 	{
+		delete cmd;
+
 		if (reader != nullptr)
 			reader->Close();
 
