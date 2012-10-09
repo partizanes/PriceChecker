@@ -145,7 +145,7 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	try
 	{
 		Random^ rnd=gcnew Random();
-		int i=rnd->Next(last_image_num-1);
+		int i=rnd->Next(last_image_num);
 
 		DirectoryInfo^ di = gcnew DirectoryInfo( Application::StartupPath + "\\image" );
 
@@ -906,4 +906,29 @@ Void Form1::image_on_Tick(System::Object^  sender, System::EventArgs^  e)
 {
 	pictureBox1->Visible = true;
 	image_on->Enabled = false;
+
+	upsize();
+}
+
+Void Form1::upsize()
+{
+	int x_max = 1272;
+	int y_max = 725;
+
+	int x = 1;
+	int y = 1;
+
+	pictureBox1->Size = System::Drawing::Size(x,y);
+	//pictureBox1->Visible = true;
+
+	while(x < x_max)
+	{
+		x++;
+
+		if(y < y_max)
+			y++;
+
+		pictureBox1->Size = System::Drawing::Size(x,y);
+	}
+
 }
