@@ -765,22 +765,19 @@ Void Form1::upload_button_Click(System::Object^  sender, System::EventArgs^  e)
 Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e)
 {
 	String^ file_name;
-	Boolean okey;
+	int okey = 0;
+	int t_log;
 
-	for (int i=1; i< 4; i++)
+	DirectoryInfo^ dinf = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\log\\");
+
+	if (dinf->Exists)
+		t_log = dinf->GetFiles("*.log", SearchOption::TopDirectoryOnly)->Length;
+
+	array<FileInfo^>^f_inf = dinf->GetFiles("*.log");
+
+	for (int i=0; i < t_log; i++)
 	{
-		switch (i)
-		{
-		case 1:
-			file_name = "pc.log";
-			break;
-		case 2:
-			file_name = "nv.log";
-			break;
-		case 3:
-			file_name = "auth.log";
-			break;
-		}
+		file_name = f_inf[i]->Name;
 
 		 try
 		 {
@@ -817,12 +814,14 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 		 }
 		 catch (Exception^ exc)
 		 {
-			 okey = false;
+			 okey--;
 			 log_write(exc->Message,"EXCEPTION","pc");
 		 }
 		 finally
 		 {
-			 if(okey)
+			 okey++;
+
+			 if(okey = t_log)
 				 log_write("Логи выгружены успешно!","SYSTEM","pc");
 		 }
 	}
