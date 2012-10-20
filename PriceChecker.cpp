@@ -46,6 +46,9 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 {
 	barcode_text_box->Focus();
 
+	//Hide cursor
+	Cursor->Hide();
+
 	//label
 	old_price_label->Visible = false;
 	action_label->Visible = false;
@@ -112,11 +115,12 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
+	CheckVersion();
+
 	if(buf == "true")
 	{
 		diag_system();
 	}
-
 
 }
 
@@ -931,3 +935,52 @@ Void Form1::upsize()
 	}
 
 }
+
+Void Form1::CheckVersion()
+{
+	MySqlDataReader^ reader = nullptr;
+
+	int ver = GetPrivateProfileInt("SETTINGS", "version",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	try
+	{
+		server2Conn->Open();
+
+		cmd = gcnew MySqlCommand("SELECT parameter FROM `version` WHERE `name` = 'PriceCheck'", server2Conn);
+
+		MySqlDataReader^ reader = cmd->ExecuteReader();
+
+		if(reader->Read())
+		{
+			if(ver == reader->GetUInt32(0))
+			{
+				log_write("Версия проверена успешно.Version = "+ ver,"VERSION","pc");
+				return;
+			}
+			else
+			{
+				log_write("Приложение требует обновления","EXCEPTION","pc");
+				//TODO auto update
+			}
+		}
+		else
+		{
+			log_write("Не удалось проверить версию!","EXCEPTION","pc");
+		}
+	}
+	catch (Exception^ exc)
+	{
+		log_write(exc->Message,"EXCEPTION","pc");
+		set_msg_on_timer("Exception: " + exc->Message);
+	}
+	finally
+	{
+		delete cmd;
+
+		if (reader != nullptr)
+			reader->Close();
+
+		if (server2Conn->State == ConnectionState::Open)
+			server2Conn->Close();
+	}
+};

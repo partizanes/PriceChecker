@@ -522,6 +522,7 @@ private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^
 			 panel4->Visible = false;
 		 }
 private: System::Void Form1::query(String^ bar);
+private: System::Void Form1::CheckVersion();
 private: System::Void Form1::upsize();
 private: System::Void Form1::queryfive(String^ bar);
 private: System::Void Form1::set_msg_on_timer(String^ text);
