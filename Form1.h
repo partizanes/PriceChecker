@@ -2,6 +2,7 @@
 
 bool act_vis = true;
 
+
 namespace PriceChecker {
 
 	using namespace System;
@@ -81,23 +82,9 @@ namespace PriceChecker {
 	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
 	private: System::Windows::Forms::Timer^  log_upload_timer;
 	private: System::Windows::Forms::Timer^  image_on;
-
-	private: 
-
-
-
-
-
-
-
-
-
 	private: System::ComponentModel::IContainer^  components;
 
-	protected: 
-
-	private:
-
+	static const int version = 58;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -489,10 +476,11 @@ namespace PriceChecker {
 #pragma endregion
 
 private: MySqlCommand^	cmd;
+
 public: MySqlConnection^ server1Conn;
 public: MySqlConnection^ server2Conn;
 public: String^ connStr;
-	
+
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);
 private: System::Void picture_off();
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e);

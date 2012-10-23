@@ -940,8 +940,6 @@ Void Form1::CheckVersion()
 {
 	MySqlDataReader^ reader = nullptr;
 
-	int ver = GetPrivateProfileInt("SETTINGS", "version",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
 	try
 	{
 		server2Conn->Open();
@@ -952,14 +950,14 @@ Void Form1::CheckVersion()
 
 		if(reader->Read())
 		{
-			if(ver == reader->GetUInt32(0))
+			if(version == reader->GetUInt32(0))
 			{
-				log_write("Версия проверена успешно.Version = "+ ver,"VERSION","pc");
+				log_write("Версия проверена успешно.Version = "+ version,"VERSION","pc");
 				return;
 			}
 			else
 			{
-				log_write("Приложение требует обновления","EXCEPTION","pc");
+				log_write("Приложение требует обновления.Версия приложения " + version + ".Версия на сервере " + (reader->GetUInt32(0)),"VERSION","pc");
 				//TODO auto update
 			}
 		}
