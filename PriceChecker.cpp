@@ -266,12 +266,15 @@ Void Form1::query(String^ bar)
 			barcode_text_box->Text = "";
 			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
 		}
-
 	}
 	catch (Exception^ exc)
 	{
 		log_write(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
+
+		//may be this need to clear barcode_text_box after Exception
+		//test this
+		barcode_text_box->Text = "";
 	}
 	finally
 	{
@@ -957,7 +960,7 @@ Void Form1::CheckVersion()
 			}
 			else
 			{
-				log_write("Приложение требует обновления.Версия приложения " + version + ".Версия на сервере " + (reader->GetUInt32(0)),"VERSION","pc");
+				log_write("Приложение требует обновления.Версия приложения:" + version + ".Версия на сервере: " + (reader->GetUInt32(0)),"VERSION","pc");
 				//TODO auto update
 			}
 		}
