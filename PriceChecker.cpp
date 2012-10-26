@@ -98,6 +98,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
 
+	//check number files
 	if (directoryInfo->Exists)
 		last_image_num += directoryInfo->GetFiles("*.jpg", SearchOption::TopDirectoryOnly)->Length;
 	else
@@ -959,6 +960,10 @@ Void Form1::CheckVersion()
 			{
 				log_write("Версия проверена успешно.Version = "+ version,"VERSION","pc");
 				return;
+			}
+			else if (version > reader->GetUInt32(0) )
+			{
+				log_write("NOT BAD!Версия клиента выше,чем на сервере.Версия клиента:" + version + ".Версия на сервере:"+ reader->GetUInt32(0),"NOTBAD","pc");
 			}
 			else
 			{
