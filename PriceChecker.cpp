@@ -929,7 +929,6 @@ Void Form1::upsize()
 	int y = 1;
 
 	pictureBox1->Size = System::Drawing::Size(x,y);
-	//pictureBox1->Visible = true;
 
 	while(x < x_max)
 	{
@@ -940,7 +939,6 @@ Void Form1::upsize()
 
 		pictureBox1->Size = System::Drawing::Size(x,y);
 	}
-
 }
 
 Void Form1::CheckVersion()
@@ -951,7 +949,7 @@ Void Form1::CheckVersion()
 	{
 		server2Conn->Open();
 
-		cmd = gcnew MySqlCommand("SELECT parameter FROM `version` WHERE `name` = 'PriceCheck'", server2Conn);
+		cmd = gcnew MySqlCommand("SELECT parameter FROM `version` WHERE `name` = 'PriceChecker'", server2Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
 
@@ -968,16 +966,19 @@ Void Form1::CheckVersion()
 
 				int status = GetPrivateProfileInt("SETTINGS", "status",0,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
+				log_write("Статус последнего обновления:" + status,"STATUS","pc");
+
 				if( status = 1)
 				{
-					log_write("Запускаем утитилиту обновления","VERSION","pc");
+					log_write("Запускаем утитилиту обновления","START","pc");
 					System::Diagnostics::Process::Start("Update.exe");
-					log_write("Закрываем Приложение для обновления","VERSION","pc");
+
+					log_write("Закрываем Приложение для обновления","EXIT","pc");
 					Application::Exit();
 				}
 				else
 				{
-					log_write("Последнее обновления было неудачным,обратитесь к системному администратору","VERSION","pc");
+					log_write("Последнее обновления было неудачным,обратитесь к системному администратору","EXCEPTION","pc");
 				}
 			}
 		}
