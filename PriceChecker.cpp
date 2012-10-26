@@ -92,6 +92,10 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	log_upload_timer->Enabled = true;
 
+	//enabled auto_update_timer
+	auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
+	auto_update_timer->Enabled = true;
+
 	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
 
 	if (directoryInfo->Exists)
@@ -962,9 +966,9 @@ Void Form1::CheckVersion()
 			{
 				log_write("Приложение требует обновления.Версия приложения:" + version + ".Версия на сервере: " + (reader->GetUInt32(0)),"VERSION","pc");
 
-				char buf[4];
+				int status = GetPrivateProfileInt("SETTINGS", "status",0,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-				if((GetPrivateProfileInt("SETTINGS", "status",0,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"))) = 1)
+				if( status = 1)
 				{
 					log_write("Запускаем утитилиту обновления","VERSION","pc");
 					System::Diagnostics::Process::Start("Update.exe");
@@ -975,6 +979,7 @@ Void Form1::CheckVersion()
 				{
 					log_write("Последнее обновления было неудачным,обратитесь к системному администратору","VERSION","pc");
 				}
+			}
 		}
 		else
 		{

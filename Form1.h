@@ -83,8 +83,9 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Timer^  log_upload_timer;
 	private: System::Windows::Forms::Timer^  image_on;
 	private: System::ComponentModel::IContainer^  components;
+	private: System::Windows::Forms::Timer^  auto_update_timer;
 
-	static const int version = 61;
+	static const int version = 62;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -135,6 +136,7 @@ namespace PriceChecker {
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
+			this->auto_update_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -435,6 +437,11 @@ namespace PriceChecker {
 			this->image_on->Interval = 7000;
 			this->image_on->Tick += gcnew System::EventHandler(this, &Form1::image_on_Tick);
 			// 
+			// auto_update_timer
+			// 
+			this->auto_update_timer->Enabled = true;
+			this->auto_update_timer->Tick += gcnew System::EventHandler(this, &Form1::auto_update_timer_Tick);
+			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
@@ -556,6 +563,9 @@ private: System::Void barcode_text_box_TextChanged(System::Object^  sender, Syst
 private: System::Void image_on_Tick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void Form1_Shown(System::Object^  sender, System::EventArgs^  e) {
 			 this->Focus();
+		 }
+private: System::Void auto_update_timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 CheckVersion();
 		 }
 };
 }
