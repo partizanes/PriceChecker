@@ -961,8 +961,20 @@ Void Form1::CheckVersion()
 			else
 			{
 				log_write("Приложение требует обновления.Версия приложения:" + version + ".Версия на сервере: " + (reader->GetUInt32(0)),"VERSION","pc");
-				//TODO auto update
-			}
+
+				char buf[4];
+
+				if((GetPrivateProfileInt("SETTINGS", "status",0,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"))) = 1)
+				{
+					log_write("Запускаем утитилиту обновления","VERSION","pc");
+					System::Diagnostics::Process::Start("Update.exe");
+					log_write("Закрываем Приложение для обновления","VERSION","pc");
+					Application::Exit();
+				}
+				else
+				{
+					log_write("Последнее обновления было неудачным,обратитесь к системному администратору","VERSION","pc");
+				}
 		}
 		else
 		{

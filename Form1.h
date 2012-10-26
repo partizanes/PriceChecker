@@ -84,7 +84,7 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Timer^  image_on;
 	private: System::ComponentModel::IContainer^  components;
 
-	static const int version = 60;
+	static const int version = 61;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
