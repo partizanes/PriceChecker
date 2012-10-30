@@ -846,6 +846,13 @@ Void Form1::backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System
 
 Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e)
 {
+	char buf[17];
+
+	GetPrivateProfileString("SETTINGS", "upload_log","false",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	if(buf == "false")
+		return;
+
 	log_write("Автоматическая выгрузка логов","SYSTEM","pc");
 	backgroundWorker1->RunWorkerAsync();
 }
