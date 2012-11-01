@@ -247,7 +247,7 @@ Void Form1::query(String^ bar)
 			 "FROM trm_in_var C \n"
 			 "LEFT JOIN trm_in_items A ON A.id=C.item \n"
 			 "LEFT JOIN trm_in_pricelist_items B ON B.item=c.item \n"
-			 "WHERE C.id='"+bar+"' \n"
+			 "WHERE C.item='"+bar+"' \n"
 			 "AND (b.pricelist_id="+CharToSystemString(buf)+")", server1Conn);
 
 		MySqlDataReader^ reader = cmd->ExecuteReader();
