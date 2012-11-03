@@ -129,9 +129,14 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 		diag_system();
 	}
 
-	CheckVersion();
+	GetPrivateProfileString("SETTINGS", "check_version","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	set_msg_on_timer("Версия Приложения:" + version);
+	if(buf == "true")
+	{
+		CheckVersion();
+	}
+
+	set_msg_on_timer( "Версия Приложения:" + version );
 }
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
