@@ -1,4 +1,5 @@
-﻿#include "Form1.h"
+﻿#include "Log.h"
+#include "Form1.h"
 #include <windows.h>
 
 bool pass = false;
@@ -13,6 +14,7 @@ using namespace System::Globalization;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
 using namespace System::Runtime::Serialization::Formatters::Binary;
+using namespace Log;
 
 
 #pragma comment(lib,"User32.lib")
@@ -37,7 +39,7 @@ int main(array<System::String ^> ^args)
 		}
 		catch (Exception^ exc)
 		{
-			//Form1::log_write(exc->Message,"EXCEPTION","pc");
+			Write::logWrite(exc->Message,"EXCEPTION","pc");
 		}
 	}
 }
@@ -81,7 +83,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	timer1->Interval = (GetPrivateProfileInt("SETTINGS", "random_img_interval",5,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*1000;
 	timer1->Enabled = true;
 
-	log_write("Терминал запущен!","SYSTEM","pc");
+	Write::logWrite("Терминал запущен!","SYSTEM","pc");
 
 	//logo after load
 	String^ path= String::Format("{0}\\image\\logo.jpg",Application::StartupPath);
@@ -144,7 +146,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 				}
 
 				query("0"+bar);
-				log_write("0"+bar,"DEBUG","pc");
+				Write::logWrite("0"+bar,"DEBUG","pc");
 			}
 	}
 }
@@ -171,7 +173,7 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 			pictureBox1->ImageLocation = path;
 			pictureBox1->SizeMode = PictureBoxSizeMode::StretchImage;
 
-			log_write("Изображение не найдено: "+path,"SYSTEM","pc");
+			Write::logWrite("Изображение не найдено: "+path,"SYSTEM","pc");
 			return;
 		}
 
@@ -181,7 +183,7 @@ Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 }
@@ -216,20 +218,6 @@ Boolean Form1::ean8_validate(int barcode[])
 		check = false;
 
 	return check;
-}
-
-Void Form1::log_write(String^ str,String^ reason,String^ logname)
-{
-	String^ EntryTime = (gcnew DateTime())->Now.ToLongTimeString();
-	String^ EntryDate = (gcnew DateTime())->Today.ToShortDateString();
-	if(!Directory::Exists(Environment::CurrentDirectory+"/log/"))
-	{
-		Directory::CreateDirectory((Environment::CurrentDirectory+"/log/"));
-	}
-	String^ fileName = "log/"+logname+".log";
-	StreamWriter^ sw = gcnew StreamWriter(fileName,true,System::Text::Encoding::UTF8);
-	sw->WriteLine("["+EntryDate+"]["+EntryTime+"]["+reason+"]"+" "+str);
-	sw->Close();
 }
 
 Void Form1::query(String^ bar)
@@ -267,14 +255,14 @@ Void Form1::query(String^ bar)
 		}
 		else
 		{
-			log_write("Не найден "+bar,"SYSTEM","pc");
+			Write::logWrite("Не найден "+bar,"SYSTEM","pc");
 			barcode_text_box->Text = "";
 			set_msg_on_timer("Штрих-код не найден!Обратитесь к продавцу!");
 		}
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 
 		//may be this need to clear barcode_text_box after Exception
@@ -411,7 +399,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 
 				query(bar);
 
-				log_write(bar,"NOTVALID[EAN8]","nv");
+				Write::logWrite(bar,"NOTVALID[EAN8]","nv");
 
 				    break;
 			}
@@ -419,7 +407,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 			if(!pass)
 			{
 				set_msg_on_timer("Авторизация не пройдена!");
-				log_write("false","PASS","auth");
+				Write::logWrite("false","PASS","auth");
 				barcode_text_box->Text = "";
 				break;
 			}
@@ -433,7 +421,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				set_msg_on_timer("                                       Настройки");
 				barcode_text_box->Text = "";
 				stg_panel->Visible = true;
-				log_write("true","PASS","auth");
+				Write::logWrite("true","PASS","auth");
 				break;
 			}
 			else
@@ -468,7 +456,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				{
 					barcode_text_box->Text = "";
 					set_msg_on_timer ("Вес товара не может быть равен нулю!") ;
-					log_write(weight,"WEIGHT","pc");
+					Write::logWrite(weight,"WEIGHT","pc");
 					return;
 				}
 
@@ -479,7 +467,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				if(price_para->Text == "Price")
 				{
 					set_msg_on_timer ("Товар не найден!!!") ;
-					log_write("Ошибка!Товар не прогружен! ->"+bar,"NOTFOUND","pc");
+					Write::logWrite("Ошибка!Товар не прогружен! ->"+bar,"NOTFOUND","pc");
 					return;
 				}
 
@@ -518,7 +506,7 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				}
 
 				query(bar);
-				log_write(bar,"NOTVALID[EAN13]","nv");
+				Write::logWrite(bar,"NOTVALID[EAN13]","nv");
 			}
 			break;
 
@@ -627,7 +615,7 @@ Boolean Form1::mysqlcheck()
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 		return false;
 	}
@@ -694,7 +682,7 @@ Void Form1::action_check(String^ bar)
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -753,7 +741,7 @@ Void Form1::opt_button_Click(System::Object^  sender, System::EventArgs^  e)
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -827,14 +815,14 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 		 catch (Exception^ exc)
 		 {
 			 okey--;
-			 log_write(exc->Message,"EXCEPTION","pc");
+			 Write::logWrite(exc->Message,"EXCEPTION","pc");
 		 }
 		 finally
 		 {
 			 okey++;
 
 			 if(okey = t_log)
-				 log_write("Логи выгружены успешно!","SYSTEM","pc");
+				 Write::logWrite("Логи выгружены успешно!","SYSTEM","pc");
 		 }
 	}
 }
@@ -853,7 +841,7 @@ Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e
 	if(buf == "false")
 		return;
 
-	log_write("Автоматическая выгрузка логов","SYSTEM","pc");
+	Write::logWrite("Автоматическая выгрузка логов","SYSTEM","pc");
 	backgroundWorker1->RunWorkerAsync();
 }
 
@@ -899,7 +887,7 @@ Void Form1::queryfive(String^ bar)
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -965,43 +953,43 @@ Void Form1::CheckVersion()
 		{
 			if(version == reader->GetUInt32(0))
 			{
-				log_write("Версия проверена успешно.Version = "+ version,"VERSION","pc");
+				Write::logWrite("Версия проверена успешно.Version = "+ version,"VERSION","pc");
 				return;
 			}
 			else if (version > reader->GetUInt32(0) )
 			{
-				log_write("NOT BAD!Версия клиента выше,чем на сервере.Версия клиента:" + version + ".Версия на сервере:"+ reader->GetUInt32(0),"NOTBAD","pc");
+				Write::logWrite("NOT BAD!Версия клиента выше,чем на сервере.Версия клиента:" + version + ".Версия на сервере:"+ reader->GetUInt32(0),"NOTBAD","pc");
 			}
 			else
 			{
-				log_write("Приложение требует обновления.Версия приложения:" + version + ".Версия на сервере: " + (reader->GetUInt32(0)),"VERSION","pc");
+				Write::logWrite("Приложение требует обновления.Версия приложения:" + version + ".Версия на сервере: " + (reader->GetUInt32(0)),"VERSION","pc");
 
 				int status = GetPrivateProfileInt("SETTINGS", "status",0,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-				log_write("Статус последнего обновления:" + status,"STATUS","pc");
+				Write::logWrite("Статус последнего обновления:" + status,"STATUS","pc");
 
 				if( status = 1)
 				{
-					log_write("Запускаем утитилиту обновления","START","pc");
+					Write::logWrite("Запускаем утитилиту обновления","START","pc");
 					System::Diagnostics::Process::Start("Update.exe");
 
-					log_write("Закрываем Приложение для обновления","EXIT","pc");
+					Write::logWrite("Закрываем Приложение для обновления","EXIT","pc");
 					Application::Exit();
 				}
 				else
 				{
-					log_write("Последнее обновления было неудачным,обратитесь к системному администратору","EXCEPTION","pc");
+					Write::logWrite("Последнее обновления было неудачным,обратитесь к системному администратору","EXCEPTION","pc");
 				}
 			}
 		}
 		else
 		{
-			log_write("Не удалось проверить версию!","EXCEPTION","pc");
+			Write::logWrite("Не удалось проверить версию!","EXCEPTION","pc");
 		}
 	}
 	catch (Exception^ exc)
 	{
-		log_write(exc->Message,"EXCEPTION","pc");
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
 		set_msg_on_timer("Exception: " + exc->Message);
 	}
 	finally
@@ -1014,4 +1002,9 @@ Void Form1::CheckVersion()
 		if (server2Conn->State == ConnectionState::Open)
 			server2Conn->Close();
 	}
+}
+
+Void Form1::Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e)
+{
+	Write::logWrite("Терминал остановлен!","SYSTEM","pc");
 };
