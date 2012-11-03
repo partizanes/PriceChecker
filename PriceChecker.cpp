@@ -96,10 +96,6 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	log_upload_timer->Enabled = true;
 
-	//enabled auto_update_timer
-	auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
-	auto_update_timer->Enabled = true;
-
 	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
 
 	//check number files
@@ -134,6 +130,10 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	if(buf == "true")
 	{
 		CheckVersion();
+
+		//enabled auto_update_timer
+		auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
+		auto_update_timer->Enabled = true;
 	}
 
 	set_msg_on_timer( "Версия Приложения:" + version );
