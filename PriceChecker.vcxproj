@@ -104,12 +104,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="PriceChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
-      <FileType>CppForm</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
+    <ClInclude Include="Log.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
