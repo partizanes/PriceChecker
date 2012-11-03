@@ -84,8 +84,10 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Timer^  image_on;
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::Timer^  auto_update_timer;
+	private: System::Windows::Forms::Label^  label_version_parametr;
+	private: System::Windows::Forms::Label^  label_version;
 
-	static const int version = 70;
+	static const int version = 71;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -137,6 +139,8 @@ namespace PriceChecker {
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
 			this->auto_update_timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->label_version = (gcnew System::Windows::Forms::Label());
+			this->label_version_parametr = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -352,6 +356,8 @@ namespace PriceChecker {
 			this->stg_panel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->stg_panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->stg_panel->Controls->Add(this->label_version_parametr);
+			this->stg_panel->Controls->Add(this->label_version);
 			this->stg_panel->Controls->Add(this->upload_button);
 			this->stg_panel->Controls->Add(this->opt_button);
 			this->stg_panel->Controls->Add(this->test_button);
@@ -441,6 +447,18 @@ namespace PriceChecker {
 			// 
 			this->auto_update_timer->Enabled = true;
 			this->auto_update_timer->Tick += gcnew System::EventHandler(this, &Form1::auto_update_timer_Tick);
+			// 
+			// label_version
+			// 
+			resources->ApplyResources(this->label_version, L"label_version");
+			this->label_version->ForeColor = System::Drawing::Color::Black;
+			this->label_version->Name = L"label_version";
+			// 
+			// label_version_parametr
+			// 
+			resources->ApplyResources(this->label_version_parametr, L"label_version_parametr");
+			this->label_version_parametr->ForeColor = System::Drawing::Color::Red;
+			this->label_version_parametr->Name = L"label_version_parametr";
 			// 
 			// Form1
 			// 

@@ -48,6 +48,8 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 {
 	barcode_text_box->Focus();
 
+	label_version_parametr->Text = Convert::ToString(version);
+
 	//Hide cursor
 	Cursor->Hide();
 
@@ -122,13 +124,14 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	CheckVersion();
-
 	if(buf == "true")
 	{
 		diag_system();
 	}
 
+	CheckVersion();
+
+	set_msg_on_timer("Версия Приложения:" + version);
 }
 
 Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventArgs^  e)
