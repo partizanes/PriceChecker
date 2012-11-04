@@ -2,20 +2,23 @@
 #include "Form1.h"
 #include <windows.h>
 
+#using <md5.dll>
+
+
 bool pass = false;
 int last_image_num = 0;
 
-using namespace PriceChecker;
+using namespace Md5;
+using namespace Log;
 using namespace System::IO;
 using namespace System::Net;
 using namespace System::Data;
+using namespace PriceChecker;
 using namespace System::Net::Sockets;
 using namespace System::Globalization;
 using namespace System::Runtime::InteropServices;
 using namespace System::Text::RegularExpressions;
 using namespace System::Runtime::Serialization::Formatters::Binary;
-using namespace Log;
-
 
 #pragma comment(lib,"User32.lib")
 

@@ -87,7 +87,7 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  label_version_parametr;
 	private: System::Windows::Forms::Label^  label_version;
 
-	static const int version = 72;
+	static const int version = 73;
 
 #pragma region Windows Form Designer generated code
 
