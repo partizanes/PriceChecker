@@ -87,7 +87,7 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Label^  label_version_parametr;
 	private: System::Windows::Forms::Label^  label_version;
 
-	static const int version = 74;
+	static const int version = 75;
 
 #pragma region Windows Form Designer generated code
 
@@ -123,6 +123,8 @@ namespace PriceChecker {
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->label_version_parametr = (gcnew System::Windows::Forms::Label());
+			this->label_version = (gcnew System::Windows::Forms::Label());
 			this->upload_button = (gcnew System::Windows::Forms::Button());
 			this->opt_button = (gcnew System::Windows::Forms::Button());
 			this->test_button = (gcnew System::Windows::Forms::Button());
@@ -136,8 +138,6 @@ namespace PriceChecker {
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
 			this->auto_update_timer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->label_version = (gcnew System::Windows::Forms::Label());
-			this->label_version_parametr = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -366,6 +366,18 @@ namespace PriceChecker {
 			resources->ApplyResources(this->stg_panel, L"stg_panel");
 			this->stg_panel->Name = L"stg_panel";
 			// 
+			// label_version_parametr
+			// 
+			resources->ApplyResources(this->label_version_parametr, L"label_version_parametr");
+			this->label_version_parametr->ForeColor = System::Drawing::Color::Red;
+			this->label_version_parametr->Name = L"label_version_parametr";
+			// 
+			// label_version
+			// 
+			resources->ApplyResources(this->label_version, L"label_version");
+			this->label_version->ForeColor = System::Drawing::Color::Black;
+			this->label_version->Name = L"label_version";
+			// 
 			// upload_button
 			// 
 			resources->ApplyResources(this->upload_button, L"upload_button");
@@ -442,20 +454,8 @@ namespace PriceChecker {
 			// 
 			// auto_update_timer
 			// 
-			this->auto_update_timer->Enabled = true;
+			this->auto_update_timer->Interval = 36000;
 			this->auto_update_timer->Tick += gcnew System::EventHandler(this, &Form1::auto_update_timer_Tick);
-			// 
-			// label_version
-			// 
-			resources->ApplyResources(this->label_version, L"label_version");
-			this->label_version->ForeColor = System::Drawing::Color::Black;
-			this->label_version->Name = L"label_version";
-			// 
-			// label_version_parametr
-			// 
-			resources->ApplyResources(this->label_version_parametr, L"label_version_parametr");
-			this->label_version_parametr->ForeColor = System::Drawing::Color::Red;
-			this->label_version_parametr->Name = L"label_version_parametr";
 			// 
 			// Form1
 			// 

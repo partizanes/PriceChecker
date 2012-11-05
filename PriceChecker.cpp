@@ -101,6 +101,10 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
 
+	//enable autoupdate
+	auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
+	auto_update_timer->Enabled = true;
+
 	//check number files
 	if (directoryInfo->Exists)
 		last_image_num += directoryInfo->GetFiles("*.jpg", SearchOption::TopDirectoryOnly)->Length;
@@ -121,23 +125,9 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	server2Conn = gcnew MySqlConnection(connStr);
 
-	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+	diag_system();
 
-	if(buf == "true")
-	{
-		diag_system();
-	}
-
-	GetPrivateProfileString("SETTINGS", "check_version","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
-
-	if(buf == "true")
-	{
-		CheckVersion();
-
-		//enabled auto_update_timer
-		auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
-		auto_update_timer->Enabled = true;
-	}
+	CheckVersion();
 
 	set_msg_on_timer( "Версия Приложения:" + version );
 }
@@ -537,6 +527,13 @@ Void Form1::pass_timer_Tick(System::Object^  sender, System::EventArgs^  e)
 
 Void Form1::diag_system()
 {
+	char buf[5];
+
+	GetPrivateProfileString("SETTINGS", "start_check","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	if(CharToSystemString(buf) != "true")
+		return;
+
 	boolean off = false;
 
 	stg_panel->Visible = true;
@@ -802,7 +799,7 @@ Void Form1::backgroundWorker1_DoWork(System::Object^  sender, System::ComponentM
 
 			 GetPrivateProfileString("SETTINGS", "upload_server","error",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-			 if(buf == "error")
+			 if(CharToSystemString(buf) == "error")
 			 {
 				 set_msg_on_timer("Не задан адрес сервера в файле конфигурации!");
 				 return;
@@ -849,7 +846,7 @@ Void Form1::log_upload_timer_Tick(System::Object^  sender, System::EventArgs^  e
 
 	GetPrivateProfileString("SETTINGS", "upload_log","false",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
-	if(buf == "false")
+	if(CharToSystemString(buf) == "false")
 		return;
 
 	Write::logWrite("Автоматическая выгрузка логов","SYSTEM","pc");
@@ -950,6 +947,17 @@ Void Form1::upsize()
 
 Void Form1::CheckVersion()
 {
+	char buf[5];
+
+	GetPrivateProfileString("SETTINGS", "check_version","true",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
+
+	if(CharToSystemString(buf) != "true")
+	{
+		//disable auto_update_timer
+		auto_update_timer->Enabled = false;
+		return;
+	}
+
 	MySqlDataReader^ reader = nullptr;
 
 	try
