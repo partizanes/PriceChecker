@@ -85,8 +85,8 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	char buf[50];
 
 	//timer for random image
-	timer1->Interval = (GetPrivateProfileInt("SETTINGS", "random_img_interval",5,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*1000;
-	timer1->Enabled = true;
+	timer_rnd_image_change->Interval = (GetPrivateProfileInt("SETTINGS", "random_img_interval",5,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*1000;
+	timer_rnd_image_change->Enabled = true;
 
 	Write::logWrite("Терминал запущен!","SYSTEM","pc");
 
@@ -99,13 +99,13 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	log_upload_timer->Interval = (GetPrivateProfileInt("SETTINGS", "upload_log_interval",3,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	log_upload_timer->Enabled = true;
 
-	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
-
 	//enable autoupdate
 	auto_update_timer->Interval = (GetPrivateProfileInt("SETTINGS", "check_update",1,SystemStringToChar(Environment::CurrentDirectory+"\\config.ini")))*3600000;
 	auto_update_timer->Enabled = true;
 
 	//check number files
+	DirectoryInfo^ directoryInfo = gcnew DirectoryInfo(Environment::CurrentDirectory+"\\image\\");
+
 	if (directoryInfo->Exists)
 		last_image_num += directoryInfo->GetFiles("*.jpg", SearchOption::TopDirectoryOnly)->Length;
 	else
@@ -127,7 +127,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 	diag_system();
 
-	CheckVersion();
+	check_version();
 
 	set_msg_on_timer( "Версия Приложения:" + version );
 }
@@ -152,7 +152,7 @@ Void Form1::barcode_text_box_TextChanged(System::Object^  sender, System::EventA
 	}
 }
 
-Void Form1::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
+Void Form1::timer_tick_change_image(System::Object^  sender, System::EventArgs^  e)
 {
 	try
 	{
@@ -945,7 +945,7 @@ Void Form1::upsize()
 	}
 }
 
-Void Form1::CheckVersion()
+Void Form1::check_version()
 {
 	char buf[5];
 

@@ -49,8 +49,9 @@ namespace PriceChecker {
 
     private: System::Windows::Forms::PictureBox^  pictureBox1;
     private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Timer^  timer_rnd_image_change;
 
-    private: System::Windows::Forms::Timer^  timer1;
+
     private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::Panel^  panel3;
@@ -107,7 +108,7 @@ namespace PriceChecker {
 			this->old_price_para = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timer_rnd_image_change = (gcnew System::Windows::Forms::Timer(this->components));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
@@ -124,6 +125,7 @@ namespace PriceChecker {
 			this->weight_clr = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pass_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->stg_panel = (gcnew System::Windows::Forms::Panel());
+			this->button_check_version = (gcnew System::Windows::Forms::Button());
 			this->label_version_parametr = (gcnew System::Windows::Forms::Label());
 			this->label_version = (gcnew System::Windows::Forms::Label());
 			this->upload_button = (gcnew System::Windows::Forms::Button());
@@ -139,7 +141,6 @@ namespace PriceChecker {
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
 			this->auto_update_timer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button_check_version = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -235,10 +236,10 @@ namespace PriceChecker {
 			this->label1->ForeColor = System::Drawing::Color::Crimson;
 			this->label1->Name = L"label1";
 			// 
-			// timer1
+			// timer_rnd_image_change
 			// 
-			this->timer1->Interval = 5000;
-			this->timer1->Tick += gcnew System::EventHandler(this, &Form1::timer1_Tick);
+			this->timer_rnd_image_change->Interval = 5000;
+			this->timer_rnd_image_change->Tick += gcnew System::EventHandler(this, &Form1::timer_tick_change_image);
 			// 
 			// panel1
 			// 
@@ -369,6 +370,14 @@ namespace PriceChecker {
 			resources->ApplyResources(this->stg_panel, L"stg_panel");
 			this->stg_panel->Name = L"stg_panel";
 			// 
+			// button_check_version
+			// 
+			resources->ApplyResources(this->button_check_version, L"button_check_version");
+			this->button_check_version->Name = L"button_check_version";
+			this->button_check_version->TabStop = false;
+			this->button_check_version->UseVisualStyleBackColor = true;
+			this->button_check_version->Click += gcnew System::EventHandler(this, &Form1::button_check_version_Click);
+			// 
 			// label_version_parametr
 			// 
 			resources->ApplyResources(this->label_version_parametr, L"label_version_parametr");
@@ -460,14 +469,6 @@ namespace PriceChecker {
 			this->auto_update_timer->Interval = 36000;
 			this->auto_update_timer->Tick += gcnew System::EventHandler(this, &Form1::auto_update_timer_Tick);
 			// 
-			// button_check_version
-			// 
-			resources->ApplyResources(this->button_check_version, L"button_check_version");
-			this->button_check_version->Name = L"button_check_version";
-			this->button_check_version->TabStop = false;
-			this->button_check_version->UseVisualStyleBackColor = true;
-			this->button_check_version->Click += gcnew System::EventHandler(this, &Form1::button_check_version_Click);
-			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
@@ -516,7 +517,7 @@ public: String^ connStr;
 
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e);
 private: System::Void picture_off();
-private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void timer_tick_change_image(System::Object^  sender, System::EventArgs^  e);
 
 private: System::Void item_name_textbox_Click(System::Object^  sender, System::EventArgs^  e) {
 		 }
@@ -542,7 +543,7 @@ private: System::Void msg_clear_Tick(System::Object^  sender, System::EventArgs^
 			 panel4->Visible = false;
 		 }
 private: System::Void Form1::query(String^ bar);
-private: System::Void Form1::CheckVersion();
+private: System::Void Form1::check_version();
 private: System::Void Form1::upsize();
 private: System::Void Form1::queryfive(String^ bar);
 private: System::Void Form1::set_msg_on_timer(String^ text);
@@ -587,10 +588,10 @@ private: System::Void Form1_Shown(System::Object^  sender, System::EventArgs^  e
 			 this->Focus();
 		 }
 private: System::Void auto_update_timer_Tick(System::Object^  sender, System::EventArgs^  e) {
-			 CheckVersion();
+			 check_version();
 		 }
 private: System::Void button_check_version_Click(System::Object^  sender, System::EventArgs^  e) {
-			 CheckVersion();
+			 check_version();
 		 }
 };
 }

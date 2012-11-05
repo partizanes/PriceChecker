@@ -459,7 +459,7 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="timer_rnd_image_change.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>40, 16</value>
   </metadata>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
@@ -879,6 +879,162 @@
   <metadata name="pass_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>335, 16</value>
   </metadata>
+  <data name="&gt;&gt;button_check_version.Name" xml:space="preserve">
+    <value>button_check_version</value>
+  </data>
+  <data name="&gt;&gt;button_check_version.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_check_version.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;button_check_version.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_version_parametr.Name" xml:space="preserve">
+    <value>label_version_parametr</value>
+  </data>
+  <data name="&gt;&gt;label_version_parametr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_version_parametr.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;label_version_parametr.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_version.Name" xml:space="preserve">
+    <value>label_version</value>
+  </data>
+  <data name="&gt;&gt;label_version.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_version.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;label_version.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Name" xml:space="preserve">
+    <value>upload_button</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;upload_button.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;upload_button.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;opt_button.Name" xml:space="preserve">
+    <value>opt_button</value>
+  </data>
+  <data name="&gt;&gt;opt_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opt_button.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;opt_button.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;test_button.Name" xml:space="preserve">
+    <value>test_button</value>
+  </data>
+  <data name="&gt;&gt;test_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;test_button.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;test_button.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Name" xml:space="preserve">
+    <value>close_menu</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;close_menu.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;close_menu.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Name" xml:space="preserve">
+    <value>mysql_check_para</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;mysql_check_para.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Name" xml:space="preserve">
+    <value>mysql_check</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;mysql_check.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Name" xml:space="preserve">
+    <value>dir_exist_para</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;dir_exist_para.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Name" xml:space="preserve">
+    <value>dir_exist</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.Parent" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;dir_exist.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="stg_panel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 258</value>
+  </data>
+  <data name="stg_panel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1225, 153</value>
+  </data>
+  <data name="stg_panel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="stg_panel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Name" xml:space="preserve">
+    <value>stg_panel</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;stg_panel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="button_check_version.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
@@ -1214,30 +1370,6 @@
   </data>
   <data name="&gt;&gt;dir_exist.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="stg_panel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 258</value>
-  </data>
-  <data name="stg_panel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1225, 153</value>
-  </data>
-  <data name="stg_panel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="stg_panel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Name" xml:space="preserve">
-    <value>stg_panel</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;stg_panel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="action_visible.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>441, 16</value>
@@ -35823,10 +35955,10 @@
   <data name="$this.Text" xml:space="preserve">
     <value>PriceChecker</value>
   </data>
-  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
-    <value>timer1</value>
+  <data name="&gt;&gt;timer_rnd_image_change.Name" xml:space="preserve">
+    <value>timer_rnd_image_change</value>
   </data>
-  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
+  <data name="&gt;&gt;timer_rnd_image_change.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lineShape2.Name" xml:space="preserve">
