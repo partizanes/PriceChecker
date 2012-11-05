@@ -86,8 +86,9 @@ namespace PriceChecker {
 	private: System::Windows::Forms::Timer^  auto_update_timer;
 	private: System::Windows::Forms::Label^  label_version_parametr;
 	private: System::Windows::Forms::Label^  label_version;
+	private: System::Windows::Forms::Button^  button_check_version;
 
-	static const int version = 75;
+	static const int version = 76;
 
 #pragma region Windows Form Designer generated code
 
@@ -138,6 +139,7 @@ namespace PriceChecker {
 			this->log_upload_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->image_on = (gcnew System::Windows::Forms::Timer(this->components));
 			this->auto_update_timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button_check_version = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -353,6 +355,7 @@ namespace PriceChecker {
 			this->stg_panel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->stg_panel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->stg_panel->Controls->Add(this->button_check_version);
 			this->stg_panel->Controls->Add(this->label_version_parametr);
 			this->stg_panel->Controls->Add(this->label_version);
 			this->stg_panel->Controls->Add(this->upload_button);
@@ -456,6 +459,14 @@ namespace PriceChecker {
 			// 
 			this->auto_update_timer->Interval = 36000;
 			this->auto_update_timer->Tick += gcnew System::EventHandler(this, &Form1::auto_update_timer_Tick);
+			// 
+			// button_check_version
+			// 
+			resources->ApplyResources(this->button_check_version, L"button_check_version");
+			this->button_check_version->Name = L"button_check_version";
+			this->button_check_version->TabStop = false;
+			this->button_check_version->UseVisualStyleBackColor = true;
+			this->button_check_version->Click += gcnew System::EventHandler(this, &Form1::button_check_version_Click);
 			// 
 			// Form1
 			// 
@@ -576,6 +587,9 @@ private: System::Void Form1_Shown(System::Object^  sender, System::EventArgs^  e
 			 this->Focus();
 		 }
 private: System::Void auto_update_timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 CheckVersion();
+		 }
+private: System::Void button_check_version_Click(System::Object^  sender, System::EventArgs^  e) {
 			 CheckVersion();
 		 }
 };
