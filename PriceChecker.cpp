@@ -350,6 +350,21 @@ Void Form1::barcode_text_box_KeyDown(System::Object^  sender, System::Windows::F
 				pass_timer->Enabled = true;
 			}
 
+			if((barcode[0]- '0') == 0 && (barcode[1]- '0') == 1 && (barcode[2]- '0') == 0 && (barcode[3]- '0') == 1)
+			{
+				if (virtual_keyboard())
+				{
+					Write::logWrite("Успешно","Start","pc");
+				}
+				else
+				{
+					set_msg_on_timer("Виртуальная клавиатура не найдена!");
+					Write::logWrite("Не найдено!","Exception","pc");
+				}
+
+				barcode_text_box->Text = "";
+			}
+
 			if((barcode[0]- '0') == 0 && (barcode[1]- '0') == 0 && (barcode[2]- '0') == 0 && (barcode[3]- '0') == 0)
 			{
 				Application::Exit();
@@ -1026,4 +1041,21 @@ Void Form1::check_version()
 Void Form1::Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e)
 {
 	Write::logWrite("Терминал остановлен!","SYSTEM","pc");
+}
+
+Boolean Form1::virtual_keyboard()
+{
+	try
+	{
+		Write::logWrite("Запуск виртуальной клавиатуры","START","pc");
+		System::Diagnostics::Process::Start(Environment::SystemDirectory + "\\osk.exe");
+		return true;
+	}
+
+	catch (Exception^ exc)
+	{
+		Write::logWrite(exc->Message,"EXCEPTION","pc");
+		set_msg_on_timer("Exception: " + exc->Message);
+		return false;
+	}
 };
