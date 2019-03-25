@@ -121,7 +121,7 @@ Void Form1::Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	GetPrivateProfileString("SETTINGS", "srv_local","192.168.1.11",buf,sizeof(buf),SystemStringToChar(Environment::CurrentDirectory+"\\config.ini"));
 
 	connStr = String::Format("server={0};uid={1};pwd={2};database={3};",
-		CharToSystemString(buf), "pricechecker", "7194622Parti", "action");
+		CharToSystemString(buf), "", "", "");
 
 	server2Conn = gcnew MySqlConnection(connStr);
 
